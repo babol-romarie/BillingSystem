@@ -1,4 +1,4 @@
-namespace BillingSystem
+namespace BillingSystem 
 {
     internal static class Program
     {
