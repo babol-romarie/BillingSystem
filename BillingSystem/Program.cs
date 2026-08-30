@@ -13,6 +13,7 @@ namespace BillingSystem
             ApplicationConfiguration.Initialize();
             Application.Run(new LoginForm());
             Application.Run(new CustomerListForm());
+            Application.Run(new CustomerListForm());
             Application.Run(new AddCustomerForm());
         }
     }
