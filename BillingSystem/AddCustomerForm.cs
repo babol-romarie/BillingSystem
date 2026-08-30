@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace BillingSystem
 {
     public partial class AddCustomerForm : Form
