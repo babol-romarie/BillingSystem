@@ -1,4 +1,4 @@
-namespace BillingSystem 
+namespace Billing System - Member A 
 {
     internal static class Program
     {
@@ -17,4 +17,4 @@ namespace BillingSystem
             // Application.Run(new EditAddCustomerForm());
         }
     }
-}SSSS
+}
