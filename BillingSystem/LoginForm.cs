@@ -13,11 +13,12 @@ namespace BillingSystem
         public LoginForm()
         {
             InitializeComponent();
+            this.Text = "Billing System - Login (A.L)";
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            this.Text = "Billing System - Login (A.L)";
+
         }
 
         private void lblUsername_Click(object sender, EventArgs e)
@@ -31,6 +32,11 @@ namespace BillingSystem
         }
 
         private void lblPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
         {
 
         }
