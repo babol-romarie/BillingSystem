@@ -1,6 +1,6 @@
 ﻿namespace BillingSystem
 {
-    partial class LoginForm
+    partial class LoginForm           //edit by Abigail C. Libanan
     {
         /// <summary>
         /// Required designer variable.
@@ -129,7 +129,7 @@
 
         private Label lblTitle;
         private Label lblUsername;
-        private TextBox txtUsername;
+        private TextBox txtUsername;      
         private Label lblPassword;
         private TextBox txtPassword;
         private Button btnLogin;
