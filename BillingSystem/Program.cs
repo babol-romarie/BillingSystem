@@ -2,7 +2,7 @@ namespace BillingSystem
 {
     // Member A and Member B both updated this namespace
     internal static class Program
-    {                                                 //Member A (Abigail libanan)
+    {                                       //  Edited by Member A (Abigail libanan) and 
                                                       //Member B (Mae Ann Cumpleto)
         [STAThread]
         static void Main()

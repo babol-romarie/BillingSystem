@@ -1,6 +1,6 @@
 ﻿namespace BillingSystem
 {
-    partial class LoginForm           //edit by Abigail C. Libanan
+    partial class LoginForm           //Edited by Abigail C. Libanan
     {
         /// <summary>
         /// Required designer variable.
@@ -41,7 +41,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitle.Location = new Point(82, 20);
+            lblTitle.Location = new Point(174, 9);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(163, 25);
             lblTitle.TabIndex = 0;
@@ -51,7 +51,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(10, 63);
+            lblUsername.Location = new Point(82, 63);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(70, 17);
             lblUsername.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(82, 57);
+            txtUsername.Location = new Point(162, 60);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(228, 25);
             txtUsername.TabIndex = 2;
@@ -68,7 +68,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(10, 112);
+            lblPassword.Location = new Point(82, 107);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(67, 17);
             lblPassword.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(82, 106);
+            txtPassword.Location = new Point(162, 104);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(228, 25);
@@ -86,7 +86,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(50, 160);
+            btnLogin.Location = new Point(162, 180);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(82, 25);
             btnLogin.TabIndex = 5;
@@ -95,7 +95,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(206, 160);
+            btnCancel.Location = new Point(308, 180);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(82, 25);
             btnCancel.TabIndex = 6;
@@ -106,7 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(334, 215);
+            ClientSize = new Size(549, 278);
             Controls.Add(btnCancel);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
