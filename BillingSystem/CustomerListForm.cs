@@ -34,5 +34,10 @@ namespace BillingSystem
         {
 
         }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

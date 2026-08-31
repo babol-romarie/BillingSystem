@@ -24,5 +24,10 @@ namespace BillingSystem
         {
 
         }
+
+        private void AddCustomerForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
