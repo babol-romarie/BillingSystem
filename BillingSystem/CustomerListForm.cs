@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BillingSystem
 {
-    public partial class CustomerListForm : Form
+    public partial class CustomerListForm : Form //Edit by Kyle Rose P. Sellorin
     {
         public CustomerListForm()
         {
