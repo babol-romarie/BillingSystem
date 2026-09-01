@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Drawing;                       
 using System.Text;
 using System.Windows.Forms;
 
 namespace BillingSystem
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form         //Edit by Abigail C. Libanan
     {
         public LoginForm()
         {
@@ -32,6 +32,11 @@ namespace BillingSystem
         }
 
         private void lblPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
         {
 
         }
