@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BillingSystem
 {
-    public partial class AddCustomerForm : Form
+    public partial class AddCustomerForm : Form // Edited by: Mae Ann M. Cumpleto
     {
         public AddCustomerForm()
         {
