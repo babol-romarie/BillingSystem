@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             DataGridView dgvCustomers;
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             CustomerID = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
             Address = new DataGridViewTextBoxColumn();
@@ -48,8 +48,8 @@
             // 
             // dgvCustomers
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopCenter;
-            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopCenter;
+            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -58,13 +58,14 @@
             dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
             dgvCustomers.EnableHeadersVisualStyles = false;
-            dgvCustomers.Location = new Point(20, 60);
+            dgvCustomers.Location = new Point(23, 71);
+            dgvCustomers.Margin = new Padding(3, 4, 3, 4);
             dgvCustomers.Name = "dgvCustomers";
             dgvCustomers.ReadOnly = true;
             dgvCustomers.RowHeadersVisible = false;
             dgvCustomers.RowHeadersWidth = 51;
             dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.Size = new Size(643, 224);
+            dgvCustomers.Size = new Size(735, 264);
             dgvCustomers.TabIndex = 1;
             // 
             // CustomerID
@@ -119,18 +120,19 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitle.Location = new Point(31, 17);
+            lblTitle.Location = new Point(35, 20);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(133, 25);
+            lblTitle.Size = new Size(170, 32);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Customer List";
             lblTitle.Click += lblTitle_Click;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(106, 322);
+            btnAdd.Location = new Point(121, 379);
+            btnAdd.Margin = new Padding(3, 4, 3, 4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(108, 25);
+            btnAdd.Size = new Size(123, 29);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add Customer";
             btnAdd.UseVisualStyleBackColor = true;
@@ -138,36 +140,40 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(299, 322);
+            btnDelete.Location = new Point(342, 379);
+            btnDelete.Margin = new Padding(3, 4, 3, 4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(82, 25);
+            btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(466, 322);
+            btnLogout.Location = new Point(533, 379);
+            btnLogout.Margin = new Padding(3, 4, 3, 4);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(82, 25);
+            btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(289, 21);
+            txtSearch.Location = new Point(330, 25);
+            txtSearch.Margin = new Padding(3, 4, 3, 4);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(208, 25);
+            txtSearch.Size = new Size(237, 27);
             txtSearch.TabIndex = 5;
             txtSearch.Text = "Billing System v1.0 – Customer List (K.S.)";
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(543, 21);
+            btnSearch.Location = new Point(621, 25);
+            btnSearch.Margin = new Padding(3, 4, 3, 4);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(82, 25);
+            btnSearch.Size = new Size(94, 29);
             btnSearch.TabIndex = 6;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
@@ -175,9 +181,9 @@
             // 
             // CustomerListForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(684, 385);
+            ClientSize = new Size(782, 453);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
             Controls.Add(btnLogout);
@@ -185,9 +191,10 @@
             Controls.Add(btnAdd);
             Controls.Add(dgvCustomers);
             Controls.Add(lblTitle);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "CustomerListForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Billing System - Customer List";
+            Text = "Billing System - Customer List (K.S)";
             Load += CustomerListForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             ResumeLayout(false);
