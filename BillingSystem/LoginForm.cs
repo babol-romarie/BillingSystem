@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BillingSystem
 {
-    public partial class LoginForm : Form         //Edit by Abigail C. Libanan
+    public partial class LoginForm : Form         //Edited by Abigail C. Libanan
     {
         public LoginForm()
         {
