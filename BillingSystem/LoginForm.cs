@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Drawing;                       
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -10,7 +10,7 @@ using BillingSystem.Database;
 
 namespace BillingSystem
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form         //Edited by Abigail C. Libanan
     {
         public LoginForm()
         {
@@ -122,6 +122,11 @@ namespace BillingSystem
             }
 
             txtUsername.Focus();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
