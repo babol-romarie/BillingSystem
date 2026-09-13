@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             DataGridView dgvCustomers;
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             CustomerID = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
             Address = new DataGridViewTextBoxColumn();
@@ -48,8 +48,8 @@
             // 
             // dgvCustomers
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.TopCenter;
-            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopCenter;
+            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -194,7 +194,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "CustomerListForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Bill System- Customer List (K.S)";
+            Text = "Bill System- Customer List form (K.S)";
             Load += CustomerListForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             ResumeLayout(false);
