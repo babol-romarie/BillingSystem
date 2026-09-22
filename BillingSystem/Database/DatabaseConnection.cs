@@ -11,12 +11,13 @@ namespace BillingSystem.Database
     {
         // Connection string settings — update Password if needed
         private const string SERVER = "localhost";
-        private const string DATABASE = "BillingDB";
+        private const string DATABASE = "billingdb";
         private const string UID = "root";
-        private const string PASSWORD = "";  // Add your MySQL password here
+        private const string PASSWORD = "C5AlwbmilsM@26";  // Add your MySQL password here
 
         private static string ConnectionString =>
-            $"server={SERVER};database={DATABASE};uid={UID};pwd={PASSWORD};";
+    $"server={SERVER};database={DATABASE};uid={UID};pwd={PASSWORD};AllowPublicKeyRetrieval=True;SslMode=0;";
+
 
         // Returns an open-ready MySqlConnection object.
         // Always use inside a 'using' block so it closes automatically.

@@ -32,7 +32,9 @@ namespace BillingSystem
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            AddCustomerForm addCustomerForm = new AddCustomerForm();
+            addCustomerForm.ShowDialog();
+            // LoadCustomers();   // enable this line in Step 4.4
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
