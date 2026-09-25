@@ -33,7 +33,7 @@ namespace BillingSystem
                 {
                     conn.Open();
 
-                    // Parameterized INSERT â€” safe from SQL injection
+                    // Parameterized INSERT — safe from SQL injection
                     string sql = @"INSERT INTO Customers
                                (FullName, Address, ContactNumber, Email, Balance, Status)
                            VALUES
