@@ -18,6 +18,46 @@ namespace BillingSystem
             this.Text = "Billing System - Login (A.L)";
         }
 
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            // Test the database connection when the form opens.
+            // This gives a clear warning if MySQL is not running.
+            if (!DatabaseConnection.TestConnection())
+            {
+                MessageBox.Show(
+                    "Cannot connect to the database.\n\n" +
+                    "Please make sure:\n" +
+                    "  1. MySQL Server is running.\n" +
+                    "  2. BillingDB database exists.\n" +
+                    "  3. The password in DatabaseConnection.cs is correct.",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            txtUsername.Focus();
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             // Step 1: Make sure both fields are filled
@@ -46,13 +86,14 @@ namespace BillingSystem
 
                     // Parameterized query — safe from SQL injection
                     string sql = @"SELECT UserID, FullName, Role
-                                   FROM   Users
-                                   WHERE  Username = @Username
-                                     AND  Password = @Password;";
+                           FROM   Users
+                           WHERE  Username = @Username
+                             AND  Password = @Password;";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
+
                         cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
 
                         using (var reader = cmd.ExecuteReader())
@@ -85,38 +126,6 @@ namespace BillingSystem
                 MessageBox.Show(
                     "Database error:\n" + ex.Message,
                     "Connection Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lblUsername_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lblPassword_Click(object sender, EventArgs e)
-        {
-        }
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            // Test the database connection when the form opens.
-            // This gives a clear warning if MySQL is not running.
-            if (!DatabaseConnection.TestConnection())
-            {
-                MessageBox.Show(
-                    "Cannot connect to the database.\n\n" +
-                    "Please make sure:\n" +
-                    "  1. MySQL Server is running.\n" +
-                    "  2. BillingDB database exists.\n" +
-                    "  3. The password in DatabaseConnection.cs is correct.",
-                    "Database Connection Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
