@@ -123,10 +123,6 @@ namespace BillingSystem
 
             txtUsername.Focus();
         }
-
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
+       
