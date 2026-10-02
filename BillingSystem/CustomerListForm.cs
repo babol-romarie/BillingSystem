@@ -20,6 +20,10 @@ namespace BillingSystem
             ConfigureDataGridView();
         }
 
+        // Stores the CustomerID of the currently selected row.
+        // 0 means no customer is currently selected.
+        private int _selectedCustomerId = 0;
+
         private void CustomerListForm_Load(object sender, EventArgs e)
         {
             LoadCustomers();
@@ -176,5 +180,77 @@ namespace BillingSystem
             }
         }
 
+        //ACT.4
+        private void dgvCustomers_SelectionChanged(object sender, EventArgs e)
+        {
+            // Update only the selected customer ID. Do not open the edit form on selection.
+            if (dgvCustomers.CurrentRow == null)
+            {
+                _selectedCustomerId = 0;
+                return;
+            }
+
+            var idCell = dgvCustomers.CurrentRow.Cells["CustomerID"].Value;
+            if (idCell != null && int.TryParse(idCell.ToString(), out int id))
+            {
+                _selectedCustomerId = id;
+            }
+            else
+            {
+                _selectedCustomerId = 0;
+            }
+        }
+
+        private void dgvCustomers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // e.RowIndex is -1 when the header row is double-clicked — ignore it
+                if (e.RowIndex < 0) return;
+
+                var row = dgvCustomers.Rows[e.RowIndex];
+                if (row == null) return;
+
+                if (row.Cells["CustomerID"].Value == null) return;
+                if (!int.TryParse(row.Cells["CustomerID"].Value.ToString(), out int customerId)) return;
+
+                using (var editForm = new AddCustomerForm(customerId))
+                {
+                    if (editForm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        // Refresh the list to reflect any changes
+                        LoadCustomers();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening edit form:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OpenEditForm()
+        {
+            if (_selectedCustomerId == 0)
+            {
+                MessageBox.Show("Please select a customer to edit.",
+                    "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Open AddCustomerForm in EDIT mode, passing the selected CustomerID
+            AddCustomerForm editForm = new AddCustomerForm(_selectedCustomerId);
+
+            // Refresh the grid automatically once the edit form closes
+            editForm.FormClosed += (s, args) => LoadCustomers();
+
+            editForm.ShowDialog(this);
+        }
+
+        private void dgvCustomers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Intentionally left blank; required for designer event wiring.
+        }
     }
 }
