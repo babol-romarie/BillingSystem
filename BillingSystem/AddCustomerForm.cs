@@ -1,17 +1,89 @@
+using BillingSystem.Database;
+using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using BillingSystem.Database;
+using System.Windows.Forms.VisualStyles;
 
 namespace BillingSystem
 {
     public partial class AddCustomerForm : Form // Edited by: Mae Ann M. Cumpleto
     {
+        // 0 = Add mode (new customer)
+        // > 0 = Edit mode (holds the CustomerID being edited)
+        private int _editCustomerId = 0;
+        // Constructor for ADD mode (no parameters)
         public AddCustomerForm()
         {
             InitializeComponent();
+            _editCustomerId = 0;
         }
 
+        // Constructor for EDIT mode — receives the CustomerID to edit
+        public AddCustomerForm(int customerId)
+        {
+            InitializeComponent();
+            _editCustomerId = customerId;
+            LoadCustomerData(customerId);
+        }
+        private void AddCustomerForm_Load(object sender, EventArgs e)
+        {
+            if (_editCustomerId > 0)
+            {
+                // EDIT MODE — change the title and load existing data
+                lblTitle.Text = "Edit Customer";
+                this.Text = "Billing System - Edit Customer";
+                LoadCustomerData(_editCustomerId);
+            }
+            else
+            {
+                // ADD MODE — set default values
+                lblTitle.Text = "Add New Customer";
+                txtBalance.Text = "0.00";
+            }
+        }
+        private void LoadCustomerData(int customerId)
+        {
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    string sql = @"SELECT FullName, Address, ContactNumber, Email, Balance
+                          FROM   Customers
+                          WHERE  CustomerID = @CustomerID;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CustomerID", customerId);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                txtFullName.Text = reader.GetString("FullName");
+                                txtAddress.Text = reader.GetString("Address");
+                                txtContact.Text = reader.GetString("ContactNumber");
+                                txtEmail.Text = reader.GetString("Email");
+                                txtBalance.Text = reader.GetDecimal("Balance").ToString("N2");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Customer record not found.", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                this.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading customer data:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void lblAddress_Click(object sender, EventArgs e)
         {
 
@@ -27,39 +99,41 @@ namespace BillingSystem
             // Step 1: Validate input before touching the database
             if (!ValidateInputs()) return;
 
+            if (_editCustomerId == 0)
+            {
+                InsertCustomer();   // ADD mode — from Activity 3
+            }
+            else
+            {
+                UpdateCustomer();   // EDIT mode — new in Activity 4
+            }
+        }
+
+        private void InsertCustomer()
+        {
             try
             {
                 using (var conn = DatabaseConnection.GetConnection())
                 {
                     conn.Open();
 
-                    // Parameterized INSERT — safe from SQL injection
-                    string sql = @"INSERT INTO Customers
-                               (FullName, Address, ContactNumber, Email, Balance, Status)
-                           VALUES
-                               (@FullName, @Address, @ContactNumber, @Email, @Balance, @Status);";
+                    string sql = @"INSERT INTO Customers (FullName, Address, ContactNumber, Email, Balance, Status)
+                          VALUES (@FullName, @Address, @ContactNumber, @Email, @Balance, @Status);";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        // Each @parameter safely carries one value from the form
                         cmd.Parameters.AddWithValue("@FullName", txtFullName.Text.Trim());
                         cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
                         cmd.Parameters.AddWithValue("@ContactNumber", txtContact.Text.Trim());
                         cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Balance", decimal.Parse(txtBalance.Text));
-                        cmd.Parameters.AddWithValue("@Status", "Active");
+                        cmd.Parameters.AddWithValue("@Balance", Convert.ToDecimal(txtBalance.Text));
+                        cmd.Parameters.AddWithValue("@Status", cmbStatus.Text); // Keeping your Status field if applicable
 
-                        // ExecuteNonQuery runs INSERT/UPDATE/DELETE and
-                        // returns the number of rows affected
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Customer saved successfully.",
-                                "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            ClearFields();
-                        }
+                        MessageBox.Show("Customer added successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                     }
                 }
             }
@@ -69,13 +143,51 @@ namespace BillingSystem
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-        private void AddCustomerForm_Load(object sender, EventArgs e)
+        private void UpdateCustomer()
         {
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
 
+                    string sql = @"UPDATE Customers 
+                          SET FullName = @FullName, 
+                              Address = @Address, 
+                              ContactNumber = @ContactNumber, 
+                              Email = @Email, 
+                              Balance = @Balance, 
+                              Status = @Status
+                          WHERE CustomerID = @CustomerID;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@FullName", txtFullName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ContactNumber", txtContact.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Balance", Convert.ToDecimal(txtBalance.Text));
+                        cmd.Parameters.AddWithValue("@Status", cmbStatus.Text);
+                        cmd.Parameters.AddWithValue("@CustomerID", _editCustomerId);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Customer updated successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating customer:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+
+
+
         private bool ValidateInputs()
         {
             // Check Full Name
