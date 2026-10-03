@@ -28,15 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            // Removed local dgvCustomers declaration; use the form field this.dgvCustomers
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            // Use the field dgvCustomers declared in the partial class; do not redeclare locally
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            this.dgvCustomers = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
+            // Note: moved initialization to use the field to avoid shadowing the field (fix for NullReferenceException)  
+            // If Designer regenerates this file, ensure the declaration is not reintroduced locally (keep only the field).  
+
+            // Previously a local dgvCustomers was declared which shadowed the class field, leaving the field null; removed that local declaration to fix the crash.
+
+
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             CustomerID = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
             Address = new DataGridViewTextBoxColumn();
@@ -49,43 +57,16 @@
             btnLogout = new Button();
             txtSearch = new TextBox();
             btnSearch = new Button();
-            this.dgvCustomers = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
+            dgvCustomers = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             SuspendLayout();
-            // 
-            // dgvCustomers
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvCustomers.BackgroundColor = SystemColors.ButtonHighlight;
-            dgvCustomers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
-            dgvCustomers.EnableHeadersVisualStyles = false;
-            dgvCustomers.Location = new Point(23, 71);
-            dgvCustomers.Margin = new Padding(3, 4, 3, 4);
-            dgvCustomers.Name = "dgvCustomers";
-            dgvCustomers.ReadOnly = true;
-            dgvCustomers.RowHeadersVisible = false;
-            dgvCustomers.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvCustomers.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.Size = new Size(735, 264);
-            dgvCustomers.TabIndex = 1;
-            dgvCustomers.CellContentClick += dgvCustomers_CellContentClick;
-            dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
-            dgvCustomers.SelectionChanged += dgvCustomers_SelectionChanged;
             // 
             // CustomerID
             // 
             CustomerID.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             CustomerID.DataPropertyName = "CustomerID";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            CustomerID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            CustomerID.DefaultCellStyle = dataGridViewCellStyle1;
             CustomerID.HeaderText = "ID";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
@@ -95,8 +76,8 @@
             // 
             FullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             FullName.DataPropertyName = "FullName";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            FullName.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            FullName.DefaultCellStyle = dataGridViewCellStyle2;
             FullName.HeaderText = "Full Name";
             FullName.MinimumWidth = 6;
             FullName.Name = "FullName";
@@ -106,8 +87,8 @@
             // 
             Address.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Address.DataPropertyName = "Address";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            Address.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Address.DefaultCellStyle = dataGridViewCellStyle3;
             Address.HeaderText = "Address";
             Address.MinimumWidth = 6;
             Address.Name = "Address";
@@ -117,8 +98,8 @@
             // 
             ContactNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             ContactNumber.DataPropertyName = "ContactNumber";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            ContactNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            ContactNumber.DefaultCellStyle = dataGridViewCellStyle4;
             ContactNumber.HeaderText = "Contact No.";
             ContactNumber.MinimumWidth = 6;
             ContactNumber.Name = "ContactNumber";
@@ -128,8 +109,8 @@
             // 
             Email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Email.DataPropertyName = "Email";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            Email.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Email.DefaultCellStyle = dataGridViewCellStyle5;
             Email.HeaderText = "Email";
             Email.MinimumWidth = 6;
             Email.Name = "Email";
@@ -139,8 +120,8 @@
             // 
             Balance.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Balance.DataPropertyName = "Balance";
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            Balance.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Balance.DefaultCellStyle = dataGridViewCellStyle6;
             Balance.HeaderText = "Balance";
             Balance.MinimumWidth = 6;
             Balance.Name = "Balance";
@@ -177,6 +158,7 @@
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnLogout
             // 
@@ -210,6 +192,33 @@
             btnSearch.UseVisualStyleBackColor = true;
             btnSearch.Click += btnSearch_Click;
             // 
+            // dgvCustomers
+            // 
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCustomers.BackgroundColor = SystemColors.ButtonHighlight;
+            dgvCustomers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
+            dgvCustomers.EnableHeadersVisualStyles = false;
+            dgvCustomers.Location = new Point(23, 71);
+            dgvCustomers.Margin = new Padding(3, 4, 3, 4);
+            dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.ReadOnly = true;
+            dgvCustomers.RowHeadersVisible = false;
+            dgvCustomers.RowHeadersWidth = 51;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvCustomers.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomers.Size = new Size(735, 264);
+            dgvCustomers.TabIndex = 1;
+            dgvCustomers.CellContentClick += dgvCustomers_CellContentClick;
+            dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
+            dgvCustomers.SelectionChanged += dgvCustomers_SelectionChanged;
+            // 
             // CustomerListForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -227,7 +236,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bill System- Customer List form (K.S)";
             Load += CustomerListForm_Load;
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
