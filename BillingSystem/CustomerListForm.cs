@@ -69,9 +69,7 @@ namespace BillingSystem
             dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
         }
 
-        // Stores the CustomerID of the currently selected row.
-        // 0 means no customer is currently selected.
-        private int _selectedCustomerId = 0;
+     
 
         private void CustomerListForm_Load(object sender, EventArgs e)
         {
