@@ -275,6 +275,35 @@ namespace BillingSystem
                             MessageBox.Show("Customer deleted successfully.",
                                 "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                            // Re-number subsequent CustomerIDs to fill the gap left by the deleted row.
+                            // This makes the ID sequence contiguous (1..N) as requested.
+                            try
+                            {
+                                // Decrement CustomerID for all rows with ID greater than the deleted one
+                                using (var upd = new MySqlCommand("UPDATE Customers SET CustomerID = CustomerID - 1 WHERE CustomerID > @DeletedId;", conn))
+                                {
+                                    upd.Parameters.AddWithValue("@DeletedId", customerId);
+                                    upd.ExecuteNonQuery();
+                                }
+
+                                // Reset the AUTO_INCREMENT to MAX(CustomerID)+1 so future inserts continue the sequence
+                                int nextAuto = 1;
+                                using (var maxCmd = new MySqlCommand("SELECT IFNULL(MAX(CustomerID), 0) + 1 FROM Customers;", conn))
+                                {
+                                    var v = maxCmd.ExecuteScalar();
+                                    if (v != null) nextAuto = Convert.ToInt32(v);
+                                }
+
+                                using (var alter = new MySqlCommand($"ALTER TABLE Customers AUTO_INCREMENT = {nextAuto};", conn))
+                                {
+                                    alter.ExecuteNonQuery();
+                                }
+                            }
+                            catch
+                            {
+                                // If renumbering fails, do not block the user — just continue with UI refresh.
+                            }
+
                             LoadCustomers();   // Refresh the grid
                             _selectedCustomerId = 0;   // Clear selection tracker
                         }
