@@ -35,6 +35,14 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            this.dgvCustomers = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
+            // Note: moved initialization to use the field to avoid shadowing the field (fix for NullReferenceException)  
+            // If Designer regenerates this file, ensure the declaration is not reintroduced locally (keep only the field).  
+
+            // Previously a local dgvCustomers was declared which shadowed the class field, leaving the field null; removed that local declaration to fix the crash.
+
+
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             CustomerID = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
@@ -122,20 +130,19 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitle.Location = new Point(44, 25);
-            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Location = new Point(35, 20);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(196, 38);
+            lblTitle.Size = new Size(170, 32);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Customer List";
             lblTitle.Click += lblTitle_Click;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(151, 474);
-            btnAdd.Margin = new Padding(4, 5, 4, 5);
+            btnAdd.Location = new Point(121, 379);
+            btnAdd.Margin = new Padding(3, 4, 3, 4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(154, 36);
+            btnAdd.Size = new Size(123, 29);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add Customer";
             btnAdd.UseVisualStyleBackColor = true;
@@ -143,10 +150,10 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(428, 474);
-            btnDelete.Margin = new Padding(4, 5, 4, 5);
+            btnDelete.Location = new Point(342, 379);
+            btnDelete.Margin = new Padding(3, 4, 3, 4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(118, 36);
+            btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
@@ -154,20 +161,20 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(666, 474);
-            btnLogout.Margin = new Padding(4, 5, 4, 5);
+            btnLogout.Location = new Point(533, 379);
+            btnLogout.Margin = new Padding(3, 4, 3, 4);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(118, 36);
+            btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(412, 31);
-            txtSearch.Margin = new Padding(4, 5, 4, 5);
+            txtSearch.Location = new Point(330, 25);
+            txtSearch.Margin = new Padding(3, 4, 3, 4);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(295, 31);
+            txtSearch.Size = new Size(237, 27);
             txtSearch.TabIndex = 5;
             txtSearch.Text = "Billing System v1.0 – Customer List (K.S.)";
             txtSearch.TextChanged += txtSearch_TextChanged;
@@ -175,10 +182,10 @@
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(776, 31);
-            btnSearch.Margin = new Padding(4, 5, 4, 5);
+            btnSearch.Location = new Point(621, 25);
+            btnSearch.Margin = new Padding(3, 4, 3, 4);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(118, 36);
+            btnSearch.Size = new Size(94, 29);
             btnSearch.TabIndex = 6;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
@@ -211,9 +218,9 @@
             // 
             // CustomerListForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(978, 566);
+            ClientSize = new Size(782, 453);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
             Controls.Add(btnLogout);
@@ -221,7 +228,7 @@
             Controls.Add(btnAdd);
             Controls.Add(dgvCustomers);
             Controls.Add(lblTitle);
-            Margin = new Padding(4, 5, 4, 5);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "CustomerListForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bill System- Customer List form (K.S)";

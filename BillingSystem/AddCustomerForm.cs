@@ -93,11 +93,57 @@ namespace BillingSystem
         {
 
         }
-
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_PostClick(object sender, EventArgs e)
         {
-            // Step 1: Validate input before touching the database
-            if (!ValidateInputs()) return;
+            // Only act in edit mode
+            if (_editCustomerId <= 0) return;
+
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+                    string sql = @"SELECT FullName, Address, ContactNumber, Email, Balance
+                           FROM   Customers
+                           WHERE  CustomerID = @CustomerID;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CustomerID", _editCustomerId);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string dbFullName = reader.GetString("FullName");
+                                string dbAddress = reader.GetString("Address");
+                                string dbContact = reader.GetString("ContactNumber");
+                                string dbEmail = reader.GetString("Email");
+                                decimal dbBalance = reader.GetDecimal("Balance");
+
+                                decimal formBalance = 0m;
+                                decimal.TryParse(txtBalance.Text, out formBalance);
+
+                                bool matches = string.Equals(dbFullName?.Trim(), txtFullName.Text.Trim(), StringComparison.Ordinal) &&
+                                               string.Equals(dbAddress?.Trim(), txtAddress.Text.Trim(), StringComparison.Ordinal) &&
+                                               string.Equals(dbContact?.Trim(), txtContact.Text.Trim(), StringComparison.Ordinal) &&
+                                               string.Equals(dbEmail?.Trim(), txtEmail.Text.Trim(), StringComparison.Ordinal) &&
+                                               Math.Abs(dbBalance - formBalance) < 0.01m;
+
+                                if (matches)
+                                {
+                                    this.DialogResult = DialogResult.OK;
+                                    this.Close();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore any errors in the post-check; do not prevent user from continuing
+            }
+        }
 
             if (_editCustomerId == 0)
             {
@@ -185,7 +231,20 @@ namespace BillingSystem
             }
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Step 1: Validate input before touching the database
+            if (!ValidateInputs()) return;
 
+            if (_editCustomerId == 0)
+            {
+                InsertCustomer();   // ADD mode — from Activity 3
+            }
+            else
+            {
+                UpdateCustomer();   // EDIT mode — new in Activity 4
+            }
+        }
 
 
         private bool ValidateInputs()
@@ -247,5 +306,59 @@ namespace BillingSystem
             txtBalance.Text = "0.00";
             txtFullName.Focus();
         }
+
+        private void UpdateCustomer()
+        {
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    // Parameterized UPDATE — only the row matching
+                    // @CustomerID is changed
+                    string sql = @"UPDATE Customers
+                           SET    FullName      = @FullName,
+                                  Address       = @Address,
+                                  ContactNumber = @ContactNumber,
+                                  Email         = @Email,
+                                  Balance       = @Balance
+                           WHERE  CustomerID    = @CustomerID;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@FullName", txtFullName.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ContactNumber", txtContact.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Balance", decimal.Parse(txtBalance.Text));
+                        cmd.Parameters.AddWithValue("@CustomerID", _editCustomerId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Customer updated successfully.",
+                                "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Close the form — CustomerListForm will refresh on close
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Update failed. The record may no longer exist.",
+                                "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating customer:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }

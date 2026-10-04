@@ -69,6 +69,10 @@ namespace BillingSystem
             dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
         }
 
+        // Stores the CustomerID of the currently selected row.
+        // 0 means no customer is currently selected.
+        private int _selectedCustomerId = 0;
+
         private void CustomerListForm_Load(object sender, EventArgs e)
         {
             LoadCustomers();
@@ -270,72 +274,6 @@ namespace BillingSystem
             }
         }
 
-        private void DeleteCustomer(int customerId)
-        {
-            try
-            {
-                using (var conn = DatabaseConnection.GetConnection())
-                {
-                    conn.Open();
-
-                    // Parameterized DELETE — removes exactly one row
-                    string sql = "DELETE FROM Customers WHERE CustomerID = @CustomerID;";
-
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@CustomerID", customerId);
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Customer deleted successfully.",
-                                "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            LoadCustomers();   // Refresh the grid
-                            _selectedCustomerId = 0;   // Clear selection tracker
-                        }
-                        else
-                        {
-                            MessageBox.Show("Customer could not be deleted. It may no longer exist.",
-                                "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error deleting customer:\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-
-        {
-            // Step 1: Make sure a customer is selected
-            if (_selectedCustomerId == 0)
-            {
-                MessageBox.Show("Please select a customer to delete.",
-                    "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Step 2: Confirm before deleting — this cannot be undone
-            DialogResult confirm = MessageBox.Show(
-                "Are you sure you want to delete this customer?\n" +
-                "All billing records for this customer will also be deleted.",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            // Step 3: Only delete if the user clicked Yes
-            if (confirm == DialogResult.Yes)
-            {
-                DeleteCustomer(_selectedCustomerId);
-            }
-            // If the user clicked No, do nothing — the record is preserved
-        }
     }
 }
 
