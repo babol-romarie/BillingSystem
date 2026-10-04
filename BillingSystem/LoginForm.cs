@@ -129,6 +129,9 @@ namespace BillingSystem
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+
+            txtUsername.Focus();
         }
     }
 }
+       

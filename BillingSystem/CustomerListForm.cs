@@ -32,7 +32,7 @@ namespace BillingSystem
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string keyword = txtSearch.Text.Trim();
-
+            
             if (string.IsNullOrEmpty(keyword))
             {
                 // Empty search box → show all customers again
