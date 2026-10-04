@@ -276,7 +276,7 @@ namespace BillingSystem
                                 "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             // Re-number subsequent CustomerIDs to fill the gap left by the deleted row.
-                            // This makes the ID sequence contiguous (1..N) as requested.
+                            // This makes the ID sequence contiguous (1..N). 
                             try
                             {
                                 // Decrement CustomerID for all rows with ID greater than the deleted one
