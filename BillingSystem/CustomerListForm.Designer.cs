@@ -34,7 +34,6 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridView dgvCustomers;
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             CustomerID = new DataGridViewTextBoxColumn();
@@ -49,8 +48,8 @@
             btnLogout = new Button();
             txtSearch = new TextBox();
             btnSearch = new Button();
-            dgvCustomers = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
+            this.dgvCustomers = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)this.dgvCustomers).BeginInit();
             SuspendLayout();
             // 
             // CustomerID
@@ -194,21 +193,21 @@
             dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCustomers.BackgroundColor = SystemColors.ButtonHighlight;
             dgvCustomers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
-            dgvCustomers.EnableHeadersVisualStyles = false;
-            dgvCustomers.Location = new Point(29, 89);
-            dgvCustomers.Margin = new Padding(4, 5, 4, 5);
-            dgvCustomers.Name = "dgvCustomers";
-            dgvCustomers.ReadOnly = true;
-            dgvCustomers.RowHeadersVisible = false;
-            dgvCustomers.RowHeadersWidth = 51;
+            this.dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
+            this.dgvCustomers.EnableHeadersVisualStyles = false;
+            this.dgvCustomers.Location = new Point(29, 89);
+            this.dgvCustomers.Margin = new Padding(4, 5, 4, 5);
+            this.dgvCustomers.Name = "dgvCustomers";
+            this.dgvCustomers.ReadOnly = true;
+            this.dgvCustomers.RowHeadersVisible = false;
+            this.dgvCustomers.RowHeadersWidth = 51;
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvCustomers.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.Size = new Size(919, 330);
-            dgvCustomers.TabIndex = 1;
-            dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
+            this.dgvCustomers.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCustomers.Size = new Size(919, 330);
+            this.dgvCustomers.TabIndex = 1;
+            this.dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
             // 
             // CustomerListForm
             // 
