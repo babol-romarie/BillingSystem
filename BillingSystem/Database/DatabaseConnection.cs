@@ -10,13 +10,13 @@ namespace BillingSystem.Database
     public class DatabaseConnection
     {
         // Connection string settings — update Password if needed
-        private const string SERVER = "localhost";
+        private const string SERVER = "127.0.0.1";
         private const string DATABASE = "billingdb";
         private const string UID = "root";
-        private const string PASSWORD = "C5AlwbmilsM@26";  // Add your MySQL password here
+        private const string PASSWORD = "MyNewPass123!";  // Add your MySQL password here
 
-        private static string ConnectionString =>
-    $"server={SERVER};database={DATABASE};uid={UID};pwd={PASSWORD};AllowPublicKeyRetrieval=True;SslMode=0;";
+        private static string ConnectionString => "server=127.0.0.1;database=billingdb;uid=root;pwd=MyNewPass123!;";
+
 
 
         // Returns an open-ready MySqlConnection object.
@@ -45,5 +45,3 @@ namespace BillingSystem.Database
         }
     }
 }
-
-

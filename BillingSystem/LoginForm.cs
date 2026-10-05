@@ -93,7 +93,6 @@ namespace BillingSystem
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
-
                         cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
 
                         using (var reader = cmd.ExecuteReader())
@@ -129,8 +128,6 @@ namespace BillingSystem
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-
-            txtUsername.Focus();
         }
     }
 }
