@@ -133,6 +133,7 @@ namespace BillingSystem
             btnSearch.TabIndex = 6;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click_1;
             // 
             // CustomerListForm
             // 

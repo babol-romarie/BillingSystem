@@ -20,7 +20,7 @@ namespace BillingSystem
 
 
 
-        private void dgvCustomers_SelectionChanged(object sender, EventArgs e)
+        private void dgvCustomers_SelectionChanged(object? sender, EventArgs e)
         {
             // If no row is selected (e.g., grid is empty), do nothing
             if (dgvCustomers.CurrentRow == null) return;
@@ -35,7 +35,7 @@ namespace BillingSystem
         }
 
 
-        private void dgvCustomers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvCustomers_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             // e.RowIndex is -1 when the header row is double-clicked — ignore it
             if (e.RowIndex < 0) return;
@@ -75,12 +75,12 @@ namespace BillingSystem
             this.Resize += CustomerListForm_Resize;
         }
 
-        private void CustomerListForm_Load(object sender, EventArgs e)
+        private void CustomerListForm_Load(object? sender, EventArgs e)
         {
             LoadCustomers();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object? sender, EventArgs e)
         {
             string keyword = txtSearch.Text.Trim();
 
@@ -95,19 +95,12 @@ namespace BillingSystem
             }
         }
 
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                btnSearch_Click(sender, e);
-            }
-        }
-        private void lblTitle_Click(object sender, EventArgs e)
+        private void lblTitle_Click(object? sender, EventArgs e)
         {
 
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object? sender, EventArgs e)
         {
             AddCustomerForm addCustomerForm = new AddCustomerForm();
             addCustomerForm.ShowDialog();
@@ -115,113 +108,25 @@ namespace BillingSystem
         }
         private void ConfigureDataGridView()
         {
-            // Use explicit columns to avoid NullReferenceException when the
-            // designer does not define the expected columns. Clear any
-            // existing columns and add the ones we expect with proper
-            // DataPropertyName values so binding works reliably.
             dgvCustomers.AutoGenerateColumns = false;
-            dgvCustomers.Columns.Clear();
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "CustomerID",
-                HeaderText = "ID",
-                DataPropertyName = "CustomerID",
-                ReadOnly = true,
-                Width = 60
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "FullName",
-                HeaderText = "Full Name",
-                DataPropertyName = "FullName",
-                Width = 200
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Address",
-                HeaderText = "Address",
-                DataPropertyName = "Address",
-                Width = 200
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "ContactNumber",
-                HeaderText = "Contact",
-                DataPropertyName = "ContactNumber",
-                Width = 120
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Email",
-                HeaderText = "Email",
-                DataPropertyName = "Email",
-                Width = 180
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Balance",
-                HeaderText = "Balance",
-                DataPropertyName = "Balance",
-                Width = 100
-            });
-
-            dgvCustomers.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                Name = "Status",
-                HeaderText = "Status",
-                DataPropertyName = "Status",
-                Width = 100
-            });
-
-            // CreatedAt column removed per UI request
-
-            // Visual and behavior settings to match desired UI
-            dgvCustomers.AllowUserToAddRows = false;
-            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.MultiSelect = false;
-            dgvCustomers.RowHeadersVisible = false;
-            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Center text by default in the grid and center headers
-            dgvCustomers.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCustomers.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCustomers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            // Make the grid resize with the form
-            dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-
-            // Set reasonable fill weights so ID column stays narrow
-            if (dgvCustomers.Columns.Contains("CustomerID")) dgvCustomers.Columns["CustomerID"].FillWeight = 30;
-            if (dgvCustomers.Columns.Contains("FullName")) dgvCustomers.Columns["FullName"].FillWeight = 180;
-            if (dgvCustomers.Columns.Contains("Address")) dgvCustomers.Columns["Address"].FillWeight = 220;
-            if (dgvCustomers.Columns.Contains("ContactNumber")) dgvCustomers.Columns["ContactNumber"].FillWeight = 110;
-            if (dgvCustomers.Columns.Contains("Email")) dgvCustomers.Columns["Email"].FillWeight = 160;
-            if (dgvCustomers.Columns.Contains("Balance"))
-            {
-                dgvCustomers.Columns["Balance"].FillWeight = 80;
-                dgvCustomers.Columns["Balance"].DefaultCellStyle.Format = "N2";
-                dgvCustomers.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dgvCustomers.Columns.Contains("Status")) dgvCustomers.Columns["Status"].FillWeight = 90;
-            // CreatedAt formatting removed (column not displayed)
-
-            // Prevent header from wrapping too early
-            dgvCustomers.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgvCustomers.Columns["CustomerID"].DataPropertyName = "CustomerID";
+            dgvCustomers.Columns["FullName"].DataPropertyName = "FullName";
+            dgvCustomers.Columns["Address"].DataPropertyName = "Address";
+            dgvCustomers.Columns["ContactNumber"].DataPropertyName = "ContactNumber";
+            dgvCustomers.Columns["Email"].DataPropertyName = "Email";
+            dgvCustomers.Columns["Balance"].DataPropertyName = "Balance";
         }
 
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void txtSearch_KeyPress(object? sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnSearch_Click(sender, e);
+            }
         }
 
-        private void CustomerListForm_Resize(object sender, EventArgs e)
+        private void CustomerListForm_Resize(object? sender, EventArgs e)
         {
             // Ensure columns fill the available width when the form changes size
             try
@@ -247,17 +152,17 @@ namespace BillingSystem
 
                     // Parameterized SELECT with WHERE ... LIKE
                     string sql = @"SELECT CustomerID,
-                                 FullName,
-                                 Address,
-                                 ContactNumber,
-                                 Email,
-                                 Balance,
-                                 Status
-                          FROM   Customers
-                          WHERE  FullName      LIKE @keyword
-                             OR  Address       LIKE @keyword
-                             OR  ContactNumber LIKE @keyword
-                          ORDER  BY FullName ASC;";
+                                  FullName,
+                                  Address,
+                                  ContactNumber,
+                                  Email,
+                                  Balance,
+                                  Status
+                           FROM   Customers
+                           WHERE  FullName      LIKE @keyword
+                              OR  Address       LIKE @keyword
+                              OR  ContactNumber LIKE @keyword
+                           ORDER  BY FullName ASC;";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
@@ -278,9 +183,11 @@ namespace BillingSystem
             catch (Exception ex)
             {
                 MessageBox.Show($"Error searching customers:\n{ex.Message}",
-                "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
 
         private void LoadCustomers()
@@ -452,12 +359,19 @@ namespace BillingSystem
             // If the user clicked No, do nothing — the record is preserved
         }
 
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim();
 
+            if (string.IsNullOrEmpty(keyword))
+            {
+                // Empty search box → show all customers again
+                LoadCustomers();
+            }
+            else
+            {
+                SearchCustomers(keyword);
+            }
+        }
     }
 }
-
-
-
-
-
-
