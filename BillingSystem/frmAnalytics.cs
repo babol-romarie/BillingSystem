@@ -28,6 +28,8 @@ namespace BillingSystem
         {
             LoadKpiSummary();
             LoadMonthlyRevenueChart();
+            LoadPaidUnpaidChart();
+            LoadTop5Customers();
         }
         private void LoadKpiSummary()
         {
@@ -72,15 +74,56 @@ namespace BillingSystem
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCloseAnalytics_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void plotPaidUnpaid_Load(object sender, EventArgs e)
         {
 
         }
+        private void LoadTop5Customers()
+        {
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    string sql = @"SELECT c.FullName,
+                                  SUM(b.Consumption)  AS TotalConsumption,
+                                  SUM(b.TotalAmount)  AS TotalBilled
+                           FROM   Customers c
+                           INNER JOIN Billing b ON c.CustomerID = b.CustomerID
+                           GROUP  BY c.CustomerID, c.FullName
+                           ORDER  BY TotalConsumption DESC
+                           LIMIT  5;";
+
+                    using (var adapter = new MySqlDataAdapter(sql, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        dgvTop5.DataSource = dt;
+
+                        if (dgvTop5.Columns.Count > 0)
+                        {
+                            dgvTop5.Columns["FullName"].HeaderText = "Customer Name";
+                            dgvTop5.Columns["TotalConsumption"].HeaderText = "Total Consumption (kWh)";
+                            dgvTop5.Columns["TotalBilled"].HeaderText = "Total Billed (₱)";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading Top 5 customers:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void LoadMonthlyRevenueChart()
         {
             try
@@ -153,16 +196,67 @@ namespace BillingSystem
                 }
                 if (min == double.MaxValue) min = 0;
                 if (max == double.MinValue) max = 0;
-                string dbg = "Monthly values (Jan..Jun): ";
-                for (int i = 0; i < values.Length; i++) dbg += $"{monthLabels[i]}={values[i]:N2} ";
-                dbg += $" | sum={sum:N2} min={min:N2} max={max:N2}";
-                MessageBox.Show(dbg, "Debug: Monthly values (always)", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 plotMonthlyRevenue.Refresh();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading monthly revenue chart:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadPaidUnpaidChart()
+        {
+            try
+            {
+                int paidCount = 0;
+                int unpaidCount = 0;
+
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    // Group all bills by status and count each group
+                    string sql = @"SELECT Status, COUNT(*) AS StatusCount
+                                   FROM   Billing
+                                   GROUP  BY Status;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string status = reader.GetString("Status");
+                            int count = reader.GetInt32("StatusCount");
+
+                            if (status == "Paid") paidCount = count;
+                            if (status == "Unpaid") unpaidCount = count;
+                        }
+                    }
+                }
+
+                // Clear any existing plot before drawing a new one
+                plotPaidUnpaid.Plot.Clear();
+
+                // Build the pie slices: Paid and Unpaid
+                double[] values = { paidCount, unpaidCount };
+                string[] labels = { "Paid", "Unpaid" };
+                double total = paidCount + unpaidCount;
+
+                var pie = plotPaidUnpaid.Plot.Add.Pie(values);
+                for (int i = 0; i < pie.Slices.Count; i++)
+                {
+                    pie.Slices[i].Label = $"{labels[i]} ({(total == 0 ? 0 : values[i] / total):P0})";
+                }
+                pie.SliceLabelDistance = 0.5;   // place labels on the slices
+
+                plotPaidUnpaid.Plot.Title("Paid vs Unpaid Bills");
+                plotPaidUnpaid.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading Paid/Unpaid chart:\n{ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

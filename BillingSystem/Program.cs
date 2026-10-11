@@ -8,10 +8,7 @@ namespace BillingSystem
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            //Application.Run(new LoginForm());
-            //Application.Run(new CustomerListForm());
-            //Application.Run(new AddCustomerForm());
-            // Application.Run(new EditAddCustomerForm()); // from Member A
+            // Start the application at the Analytics dashboard for development/testing.
             Application.Run(new frmAnalytics());
         }
     }

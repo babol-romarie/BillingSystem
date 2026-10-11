@@ -48,12 +48,13 @@
             // 
             // dgvTop5
             // 
+            dgvTop5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTop5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTop5.Columns.AddRange(new DataGridViewColumn[] { FullName, TotalConsumption, TotalBilled });
-            dgvTop5.Location = new Point(42, 390);
+            dgvTop5.Location = new Point(33, 357);
             dgvTop5.Name = "dgvTop5";
             dgvTop5.RowHeadersWidth = 62;
-            dgvTop5.Size = new Size(517, 155);
+            dgvTop5.Size = new Size(795, 225);
             dgvTop5.TabIndex = 0;
             // 
             // FullName
@@ -61,33 +62,30 @@
             FullName.HeaderText = "Full Name";
             FullName.MinimumWidth = 8;
             FullName.Name = "FullName";
-            FullName.Width = 150;
             // 
             // TotalConsumption
             // 
             TotalConsumption.HeaderText = "Total Consumption";
             TotalConsumption.MinimumWidth = 8;
             TotalConsumption.Name = "TotalConsumption";
-            TotalConsumption.Width = 150;
             // 
             // TotalBilled
             // 
             TotalBilled.HeaderText = "Total Billed";
             TotalBilled.MinimumWidth = 8;
             TotalBilled.Name = "TotalBilled";
-            TotalBilled.Width = 150;
             // 
             // plotMonthlyRevenue
             // 
-            plotMonthlyRevenue.Location = new Point(143, 131);
+            plotMonthlyRevenue.Location = new Point(85, 101);
             plotMonthlyRevenue.Name = "plotMonthlyRevenue";
-            plotMonthlyRevenue.Size = new Size(225, 225);
+            plotMonthlyRevenue.Size = new Size(317, 225);
             plotMonthlyRevenue.TabIndex = 1;
             // 
             // lblTotalCustomers
             // 
             lblTotalCustomers.AutoSize = true;
-            lblTotalCustomers.Location = new Point(94, 91);
+            lblTotalCustomers.Location = new Point(42, 73);
             lblTotalCustomers.Name = "lblTotalCustomers";
             lblTotalCustomers.Size = new Size(32, 25);
             lblTotalCustomers.TabIndex = 2;
@@ -96,7 +94,7 @@
             // lblTotalRevenue
             // 
             lblTotalRevenue.AutoSize = true;
-            lblTotalRevenue.Location = new Point(428, 91);
+            lblTotalRevenue.Location = new Point(409, 73);
             lblTotalRevenue.Name = "lblTotalRevenue";
             lblTotalRevenue.Size = new Size(101, 25);
             lblTotalRevenue.TabIndex = 3;
@@ -105,7 +103,7 @@
             // lblTotalUnpaid
             // 
             lblTotalUnpaid.AutoSize = true;
-            lblTotalUnpaid.Location = new Point(782, 91);
+            lblTotalUnpaid.Location = new Point(762, 73);
             lblTotalUnpaid.Name = "lblTotalUnpaid";
             lblTotalUnpaid.Size = new Size(91, 25);
             lblTotalUnpaid.TabIndex = 4;
@@ -113,26 +111,26 @@
             // 
             // plotPaidUnpaid
             // 
-            plotPaidUnpaid.Location = new Point(530, 131);
+            plotPaidUnpaid.Location = new Point(493, 101);
             plotPaidUnpaid.Name = "plotPaidUnpaid";
-            plotPaidUnpaid.Size = new Size(225, 225);
+            plotPaidUnpaid.Size = new Size(326, 225);
             plotPaidUnpaid.TabIndex = 5;
             plotPaidUnpaid.Load += plotPaidUnpaid_Load;
             // 
             // btnCloseAnalytics
             // 
-            btnCloseAnalytics.Location = new Point(796, 548);
+            btnCloseAnalytics.Location = new Point(854, 548);
             btnCloseAnalytics.Name = "btnCloseAnalytics";
             btnCloseAnalytics.Size = new Size(112, 34);
             btnCloseAnalytics.TabIndex = 6;
             btnCloseAnalytics.Text = "Close";
             btnCloseAnalytics.UseVisualStyleBackColor = true;
-            btnCloseAnalytics.Click += button1_Click;
+            btnCloseAnalytics.Click += btnCloseAnalytics_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(56, 66);
+            label1.Location = new Point(42, 48);
             label1.Name = "label1";
             label1.Size = new Size(139, 25);
             label1.TabIndex = 7;
@@ -141,7 +139,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(428, 66);
+            label2.Location = new Point(409, 48);
             label2.Name = "label2";
             label2.Size = new Size(120, 25);
             label2.TabIndex = 8;
@@ -150,7 +148,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(782, 66);
+            label3.Location = new Point(762, 48);
             label3.Name = "label3";
             label3.Size = new Size(111, 25);
             label3.TabIndex = 9;
@@ -169,7 +167,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(42, 359);
+            label5.Location = new Point(33, 329);
             label5.Name = "label5";
             label5.Size = new Size(284, 25);
             label5.TabIndex = 11;
