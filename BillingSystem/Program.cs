@@ -11,6 +11,8 @@ namespace BillingSystem
             Application.Run(new LoginForm());
             Application.Run(new CustomerListForm());
             Application.Run(new AddCustomerForm());
+            Application.Run(new frmAnalytics());
+
             // Application.Run(new EditAddCustomerForm()); // from Member A
         }
     }

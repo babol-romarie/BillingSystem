@@ -7,6 +7,12 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using BillingSystem.Database;
+using ClosedXML.Excel;
+using System.IO;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+
+
 
 
 
@@ -106,15 +112,67 @@ namespace BillingSystem
             addCustomerForm.ShowDialog();
             // LoadCustomers();   // enable this line in Step 4.4
         }
+        private void btnAnalytics_Click(object sender, EventArgs e)
+        {
+            frmAnalytics analyticsForm = new frmAnalytics();
+            analyticsForm.FormClosed += (s, args) =>
+            {
+                try
+                {
+                    this.Activate();
+                    LoadCustomers();
+                }
+                catch { }
+            };
+
+            analyticsForm.ShowDialog(this);
+        }
         private void ConfigureDataGridView()
         {
+            // Ensure we don't auto-generate columns (we map properties manually)
             dgvCustomers.AutoGenerateColumns = false;
-            dgvCustomers.Columns["CustomerID"].DataPropertyName = "CustomerID";
-            dgvCustomers.Columns["FullName"].DataPropertyName = "FullName";
-            dgvCustomers.Columns["Address"].DataPropertyName = "Address";
-            dgvCustomers.Columns["ContactNumber"].DataPropertyName = "ContactNumber";
-            dgvCustomers.Columns["Email"].DataPropertyName = "Email";
-            dgvCustomers.Columns["Balance"].DataPropertyName = "Balance";
+
+            // Helper to ensure a column with the given name exists; if missing,
+            // create a new text column with that Name so DataPropertyName can be set.
+            void EnsureColumn(string name, string headerText = null)
+            {
+                if (dgvCustomers.Columns.Contains(name)) return;
+
+                var col = new DataGridViewTextBoxColumn()
+                {
+                    Name = name,
+                    HeaderText = headerText ?? name,
+                    DataPropertyName = string.Empty // will be assigned below
+                };
+
+                dgvCustomers.Columns.Add(col);
+            }
+
+            // Ensure all required columns exist (without modifying any existing column's
+            // Name or HeaderText). If a column already exists, we only set its DataPropertyName.
+            EnsureColumn("CustomerID");
+            EnsureColumn("FullName");
+            EnsureColumn("Address");
+            EnsureColumn("ContactNumber");
+            EnsureColumn("Email");
+            EnsureColumn("Balance");
+            EnsureColumn("Status");
+
+            // Now safely set DataPropertyName for each column (existing or newly added)
+            if (dgvCustomers.Columns.Contains("CustomerID"))
+                dgvCustomers.Columns["CustomerID"].DataPropertyName = "CustomerID";
+            if (dgvCustomers.Columns.Contains("FullName"))
+                dgvCustomers.Columns["FullName"].DataPropertyName = "FullName";
+            if (dgvCustomers.Columns.Contains("Address"))
+                dgvCustomers.Columns["Address"].DataPropertyName = "Address";
+            if (dgvCustomers.Columns.Contains("ContactNumber"))
+                dgvCustomers.Columns["ContactNumber"].DataPropertyName = "ContactNumber";
+            if (dgvCustomers.Columns.Contains("Email"))
+                dgvCustomers.Columns["Email"].DataPropertyName = "Email";
+            if (dgvCustomers.Columns.Contains("Balance"))
+                dgvCustomers.Columns["Balance"].DataPropertyName = "Balance";
+            if (dgvCustomers.Columns.Contains("Status"))
+                dgvCustomers.Columns["Status"].DataPropertyName = "Status";
         }
 
 
@@ -133,6 +191,14 @@ namespace BillingSystem
             {
                 if (dgvCustomers != null && dgvCustomers.Columns.Count > 0)
                 {
+                    // Keep a fixed space for the bottom buttons by resizing the grid height
+                    // so it doesn't overlap the buttons. btnAdd is used as a reference for
+                    // the top of the bottom button row.
+                    int bottomControlTop = btnAdd?.Top ?? (this.ClientSize.Height - 60);
+                    int desiredHeight = Math.Max(100, bottomControlTop - dgvCustomers.Top - 10);
+                    dgvCustomers.Height = desiredHeight;
+
+                    // The grid is anchored left/right so width adjusts automatically.
                     dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     dgvCustomers.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
                 }
@@ -371,6 +437,161 @@ namespace BillingSystem
             else
             {
                 SearchCustomers(keyword);
+            }
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            // Make sure there is something to export
+            if (dgvCustomers.Rows.Count == 0)
+            {
+                MessageBox.Show("There are no records to export.",
+                    "Export to Excel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Let the user choose where to save the file
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "Excel Workbook (*.xlsx)|*.xlsx";
+                saveDialog.FileName = "CustomerList.xlsx";
+
+                if (saveDialog.ShowDialog() != DialogResult.OK) return;
+
+                try
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Customers");
+
+                        // Write column headers in row 1
+                        for (int col = 0; col < dgvCustomers.Columns.Count; col++)
+                        {
+                            worksheet.Cell(1, col + 1).Value = dgvCustomers.Columns[col].HeaderText;
+                            worksheet.Cell(1, col + 1).Style.Font.Bold = true;
+                        }
+
+                        // Write each data row starting from row 2
+                        for (int row = 0; row < dgvCustomers.Rows.Count; row++)
+                        {
+                            for (int col = 0; col < dgvCustomers.Columns.Count; col++)
+                            {
+                                var cellValue = dgvCustomers.Rows[row].Cells[col].Value;
+                                worksheet.Cell(row + 2, col + 1).Value = cellValue?.ToString() ?? "";
+                            }
+                        }
+
+                        // Auto-adjust column widths to fit the content
+                        worksheet.Columns().AdjustToContents();
+
+                        workbook.SaveAs(saveDialog.FileName);
+                    }
+
+                    MessageBox.Show("Customer list exported successfully to Excel.",
+                        "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting to Excel:\n{ex.Message}",
+                        "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnExportPdf_Click(object sender, EventArgs e)
+        {
+            // Make sure there is something to export
+            if (dgvCustomers.Rows.Count == 0)
+            {
+                MessageBox.Show("There are no records to export.",
+                    "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "PDF Document (*.pdf)|*.pdf";
+                saveDialog.FileName = "CustomerList.pdf";
+
+                if (saveDialog.ShowDialog() != DialogResult.OK) return;
+
+                try
+                {
+                    using (PdfDocument document = new PdfDocument())
+                    {
+                        // Create a new page set to Landscape orientation
+                        PdfPage page = document.AddPage();
+                        page.Orientation = PdfSharp.PageOrientation.Landscape;
+
+                        XGraphics gfx = XGraphics.FromPdfPage(page);
+                        {
+                            XFont titleFont = new XFont("Arial", 16, XFontStyleEx.Bold);
+                            XFont headerFont = new XFont("Arial", 10, XFontStyleEx.Bold);
+                            XFont cellFont = new XFont("Arial", 9, XFontStyleEx.Regular);
+
+                            // Title
+                            gfx.DrawString("Customer List Report", titleFont, XBrushes.Black,
+                                new XRect(0, 20, page.Width.Point, 30), XStringFormats.TopCenter);
+
+                            int columnCount = dgvCustomers.Columns.Count;
+                            double margin = 30;
+                            double tableWidth = page.Width.Point - (margin * 2);
+                            double colWidth = tableWidth / columnCount;
+                            double rowHeight = 22;
+                            double y = 60;
+
+                            // Draw column headers
+                            double x = margin;
+                            for (int col = 0; col < columnCount; col++)
+                            {
+                                gfx.DrawString(dgvCustomers.Columns[col].HeaderText, headerFont,
+                                    XBrushes.Black, new XRect(x, y, colWidth, rowHeight),
+                                    XStringFormats.CenterLeft);
+                                x += colWidth;
+                            }
+
+                            y += rowHeight;
+                            gfx.DrawLine(XPens.Black, margin, y, page.Width.Point - margin, y);
+
+                            // Draw each data row
+                            foreach (DataGridViewRow row in dgvCustomers.Rows)
+                            {
+                                x = margin;
+                                y += rowHeight;
+
+                                // Start a new page if we run out of vertical space
+                                if (y > page.Height.Point - margin)
+                                {
+                                    page = document.AddPage();
+                                    page.Orientation = PdfSharp.PageOrientation.Landscape;
+                                    gfx.Dispose();
+                                    gfx = XGraphics.FromPdfPage(page);
+                                    y = 40;
+                                }
+
+                                for (int col = 0; col < columnCount; col++)
+                                {
+                                    string text = row.Cells[col].Value?.ToString() ?? "";
+                                    gfx.DrawString(text, cellFont, XBrushes.Black,
+                                        new XRect(x, y, colWidth, rowHeight),
+                                        XStringFormats.CenterLeft);
+                                    x += colWidth;
+                                }
+                            }
+                        }
+
+                        gfx.Dispose();   // finish drawing before saving
+                        document.Save(saveDialog.FileName);
+                    }
+
+                    MessageBox.Show("Customer list exported successfully to PDF.",
+                        "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting to PDF:\n{ex.Message}",
+                        "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

@@ -6,7 +6,9 @@
          is running. This prevents MSB3027 "file is locked by" errors while iterating.
          If you need an exe as the output for deployment/testing, remove or override
          this property. -->
-    <UseAppHost>false</UseAppHost>
+    <!-- UseAppHost true ensures the native app host is created so the app runs as a GUI process
+         (avoids launching dotnet.exe which opens a console window). Set to true for a WinForms GUI. -->
+    <UseAppHost>true</UseAppHost>
     <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -15,8 +17,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="MySql.Data" Version="26.7.0" />
+    <PackageReference Include="PDFsharp-GDI" Version="6.2.4" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.1.59" />
   </ItemGroup>
 
 </Project>
