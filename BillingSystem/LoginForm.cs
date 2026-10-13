@@ -1,17 +1,16 @@
-﻿using MySql.Data.MySqlClient;
-using BillingSystem.Database;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Drawing;                       
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using BillingSystem.Database;
 
 namespace BillingSystem
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form         //Edited by Abigail C. Libanan
     {
         public LoginForm()
         {
@@ -23,20 +22,44 @@ namespace BillingSystem
         {
             // Test the database connection when the form opens.
             // This gives a clear warning if MySQL is not running.
-            if (!DatabaseConnection.TestConnection())
+            // Try opening a connection at startup so we can show a full error now
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+                }
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Cannot connect to the database.\n\n" +
-                    "Please make sure:\n" +
-                    "  1. MySQL Server is running.\n" +
-                    "  2. BillingDB database exists.\n" +
-                    "  3. The password in DatabaseConnection.cs is correct.",
+                    "Cannot connect to the database:\n" + ex.ToString(),
                     "Database Connection Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
 
             txtUsername.Focus();
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -67,14 +90,16 @@ namespace BillingSystem
 
                     // Parameterized query — safe from SQL injection
                     string sql = @"SELECT UserID, FullName, Role
-                                   FROM   Users
-                                   WHERE  Username = @Username
-                                     AND  Password = @Password;";
-
+                           FROM   users
+                           WHERE  Username = @Username
+                             AND  Password = @Password;";
+                    string userVal = txtUsername?.Text?.Trim() ?? string.Empty;
+                    string passVal = txtPassword?.Text ?? string.Empty;
+                    MessageBox.Show($"Input -> User: '{userVal}', Pass: '{passVal}'", "Input Check");
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@Username", txtUsername.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                        cmd.Parameters.AddWithValue("@Username", txtUsername?.Text?.Trim() ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Password", txtPassword?.Text ?? string.Empty);
 
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -93,8 +118,7 @@ namespace BillingSystem
                                     "Login Failed",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
-                                txtPassword.Clear();
-                                txtPassword.Focus();
+                                
                             }
                         }
                     }
@@ -102,30 +126,17 @@ namespace BillingSystem
             }
             catch (Exception ex)
             {
-                // Show an error if the database cannot be reached
+                // Show a full exception (stack trace) during development so we can
+                // see the exact cause and line where the error originated.
                 MessageBox.Show(
-                    "Database error:\n" + ex.Message,
+                    "Database error:\n" + ex.ToString(),
                     "Connection Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-        }
 
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
             txtUsername.Focus();
-        }
-
-        private void lblUsername_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lblPassword_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
         }
     }
 }
+       

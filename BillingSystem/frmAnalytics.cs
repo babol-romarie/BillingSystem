@@ -8,10 +8,6 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using BillingSystem.Database;
 using ScottPlot;
-using System.Collections.Generic;
-
-
-
 
 namespace BillingSystem
 {
@@ -21,30 +17,20 @@ namespace BillingSystem
         {
             InitializeComponent();
             dgvTop5.AutoGenerateColumns = false;
-            dgvTop5.Columns["FullName"].DataPropertyName = "FullName";
-            dgvTop5.Columns["TotalConsumption"].DataPropertyName = "TotalConsumption";
-            dgvTop5.Columns["TotalBilled"].DataPropertyName = "TotalBilled";
-
-
+            dgvTop5.Columns["FullName"]!.DataPropertyName = "FullName";
+            dgvTop5.Columns["TotalConsumption"]!.DataPropertyName = "TotalConsumption";
+            dgvTop5.Columns["TotalBilled"]!.DataPropertyName = "TotalBilled";
+            // Ensure the Load event is handled (designer did not wire it)
+            this.Load += frmAnalytics_Load;
         }
 
-        private void lblTotalCustomers_Click(object sender, EventArgs e)
+        private void frmAnalytics_Load(object sender, EventArgs e)
         {
-
+            LoadKpiSummary();
+            LoadMonthlyRevenueChart();
+            LoadPaidUnpaidChart();
+            LoadTop5Customers();
         }
-
-        private void plotPaidUnpaid_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvTop5_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
-
         private void LoadKpiSummary()
         {
             try
@@ -88,126 +74,15 @@ namespace BillingSystem
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-        private void LoadMonthlyRevenueChart()
+        private void btnCloseAnalytics_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var months = new List<string>();
-                var amounts = new List<double>();
-
-                using (var conn = DatabaseConnection.GetConnection())
-                {
-                    conn.Open();
-
-                    // Group PAID bills by month and sum the total amount
-                    string sql = @"SELECT BillingMonth,
-                                  SUM(TotalAmount) AS MonthlyTotal
-                           FROM   Billing
-                           WHERE  Status = 'Paid'
-                           GROUP  BY BillingMonth
-                           ORDER  BY MIN(BillingDate);";
-
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            months.Add(reader.GetString("BillingMonth"));
-                            amounts.Add((double)reader.GetDecimal("MonthlyTotal"));
-                        }
-                    }
-                }
-
-                // Clear any existing plot before drawing a new one
-                plotMonthlyRevenue.Plot.Clear();
-
-                // Add a bar chart using the amounts as bar heights
-                double[] values = amounts.ToArray();
-                var barPlot = plotMonthlyRevenue.Plot.Add.Bars(values);
-
-                // Use the month names as X-axis tick labels
-                double[] positions = new double[months.Count];
-                for (int i = 0; i < months.Count; i++) positions[i] = i;
-
-                plotMonthlyRevenue.Plot.Axes.Bottom.SetTicks(positions, months.ToArray());
-                plotMonthlyRevenue.Plot.Title("Monthly Revenue (Paid Bills)");
-                plotMonthlyRevenue.Plot.YLabel("Revenue (₱)");
-                plotMonthlyRevenue.Plot.XLabel("Month");
-
-                plotMonthlyRevenue.Refresh();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading monthly revenue chart:\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-
+            this.Close();
         }
 
-
-
-        private void LoadPaidUnpaidChart()
+        private void plotPaidUnpaid_Load(object sender, EventArgs e)
         {
-            try
-            {
-                int paidCount = 0;
-                int unpaidCount = 0;
 
-                using (var conn = DatabaseConnection.GetConnection())
-                {
-                    conn.Open();
-
-                    // Group all bills by status and count each group
-                    string sql = @"SELECT Status, COUNT(*) AS StatusCount
-                           FROM   Billing
-                           GROUP  BY Status;";
-
-                    using (var cmd = new MySqlCommand(sql, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string status = reader.GetString("Status");
-                            int count = reader.GetInt32("StatusCount");
-
-                            if (status == "Paid") paidCount = count;
-                            if (status == "Unpaid") unpaidCount = count;
-                        }
-                    }
-                }
-
-                // Clear any existing plot before drawing a new one
-                plotPaidUnpaid.Plot.Clear();
-
-                // Build the pie slices: Paid and Unpaid
-                double[] values = { paidCount, unpaidCount };
-                string[] labels = { "Paid", "Unpaid" };
-                double total = paidCount + unpaidCount;
-
-                var pie = plotPaidUnpaid.Plot.Add.Pie(values);
-                for (int i = 0; i < pie.Slices.Count; i++)
-                {
-                    pie.Slices[i].Label = $"{labels[i]} ({values[i] / total:P0})";
-                }
-                pie.SliceLabelDistance = 0.5;   // place labels on the slices
-
-                plotPaidUnpaid.Plot.Title("Paid vs Unpaid Bills");
-                plotPaidUnpaid.Refresh();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading Paid/Unpaid chart:\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
-
-
-
-
         private void LoadTop5Customers()
         {
             try
@@ -248,28 +123,142 @@ namespace BillingSystem
             }
         }
 
-        private void frmAnalytics_Load(object sender, EventArgs e)
-        {
-            LoadKpiSummary();
-            LoadMonthlyRevenueChart();
-            LoadPaidUnpaidChart();
-            LoadTop5Customers();
 
+        private void LoadMonthlyRevenueChart()
+        {
+            try
+            {
+                // We want to show January to June 2026 explicitly.
+                string[] monthLabels = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun" };
+                double[] values = new double[6]; // defaults to 0
+
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+
+                    // The Billing table already has a BillingMonth column with values like "January 2026".
+                    // Query paid bills grouped by that column and map the results to Jan..Jun slots.
+                    string sql = @"SELECT BillingMonth, IFNULL(SUM(TotalAmount),0) AS MonthlyTotal
+                                   FROM Billing
+                                   WHERE Status = 'Paid' AND BillingMonth IS NOT NULL
+                                   GROUP BY BillingMonth;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string bm = reader.GetString("BillingMonth").Trim();
+                            decimal total = reader.GetDecimal("MonthlyTotal");
+
+                            // Determine index 0..5 for Jan..Jun 2026
+                            int idx = -1;
+                            if (bm.StartsWith("January", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 0;
+                            else if (bm.StartsWith("February", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 1;
+                            else if (bm.StartsWith("March", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 2;
+                            else if (bm.StartsWith("April", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 3;
+                            else if (bm.StartsWith("May", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 4;
+                            else if (bm.StartsWith("June", StringComparison.OrdinalIgnoreCase) && bm.Contains("2026")) idx = 5;
+
+                            if (idx >= 0 && idx < values.Length)
+                                values[idx] = (double)total;
+                        }
+                    }
+                }
+
+                // Clear and draw
+                plotMonthlyRevenue.Plot.Clear();
+                // positions 0..5
+                double[] positions = new double[values.Length];
+                for (int i = 0; i < positions.Length; i++) positions[i] = i;
+
+                var bar = plotMonthlyRevenue.Plot.Add.Bars(values);
+                // positions 0..n-1
+                double[] positionsD = new double[values.Length];
+                for (int i = 0; i < positionsD.Length; i++) positionsD[i] = i;
+                plotMonthlyRevenue.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(positionsD, monthLabels);
+                plotMonthlyRevenue.Plot.Title("Monthly Revenue (Jan–Jun 2026) - Paid Bills");
+                plotMonthlyRevenue.Plot.YLabel("Revenue (₱)");
+                plotMonthlyRevenue.Plot.XLabel("Month");
+
+                plotMonthlyRevenue.Plot.Axes.AutoScale();
+
+                // Debug: show the loaded values so we can verify mapping
+                double sum = 0;
+                double min = double.MaxValue;
+                double max = double.MinValue;
+                for (int i = 0; i < values.Length; i++)
+                {
+                    double v = values[i];
+                    sum += v;
+                    if (v < min) min = v;
+                    if (v > max) max = v;
+                }
+                if (min == double.MaxValue) min = 0;
+                if (max == double.MinValue) max = 0;
+
+                plotMonthlyRevenue.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading monthly revenue chart:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnCloseAnalytics_Click(object sender, EventArgs e)
+        private void LoadPaidUnpaidChart()
         {
-            this.Close();
-        }
+            try
+            {
+                int paidCount = 0;
+                int unpaidCount = 0;
 
-        private void plotMonthlyRevenue_Load(object sender, EventArgs e)
-        {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
 
-        }
+                    // Group all bills by status and count each group
+                    string sql = @"SELECT Status, COUNT(*) AS StatusCount
+                                   FROM   Billing
+                                   GROUP  BY Status;";
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string status = reader.GetString("Status");
+                            int count = reader.GetInt32("StatusCount");
 
+                            if (status == "Paid") paidCount = count;
+                            if (status == "Unpaid") unpaidCount = count;
+                        }
+                    }
+                }
+
+                // Clear any existing plot before drawing a new one
+                plotPaidUnpaid.Plot.Clear();
+
+                // Build the pie slices: Paid and Unpaid
+                double[] values = { paidCount, unpaidCount };
+                string[] labels = { "Paid", "Unpaid" };
+                double total = paidCount + unpaidCount;
+
+                var pie = plotPaidUnpaid.Plot.Add.Pie(values);
+                for (int i = 0; i < pie.Slices.Count; i++)
+                {
+                    pie.Slices[i].Label = $"{labels[i]} ({(total == 0 ? 0 : values[i] / total):P0})";
+                }
+                pie.SliceLabelDistance = 0.5;   // place labels on the slices
+
+                plotPaidUnpaid.Plot.Title("Paid vs Unpaid Bills");
+                plotPaidUnpaid.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading Paid/Unpaid chart:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

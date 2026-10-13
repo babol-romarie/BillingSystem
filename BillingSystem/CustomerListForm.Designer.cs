@@ -2,8 +2,15 @@
 {
     partial class CustomerListForm
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,116 +22,248 @@
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
             DataGridView dgvCustomers;
-            txtSearch = new TextBox();
-            btnSearch = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            CustomerID = new DataGridViewTextBoxColumn();
+            FullName = new DataGridViewTextBoxColumn();
+            Address = new DataGridViewTextBoxColumn();
+            ContactNumber = new DataGridViewTextBoxColumn();
+            Email = new DataGridViewTextBoxColumn();
+            Balance = new DataGridViewTextBoxColumn();
             lblTitle = new Label();
             btnAdd = new Button();
             btnDelete = new Button();
+            btnLogout = new Button();
+            txtSearch = new TextBox();
+            btnSearch = new Button();
+            btnAnalytics = new Button();
             btnExportExcel = new Button();
             btnExportPdf = new Button();
             dgvCustomers = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             SuspendLayout();
             // 
-            // dgvCustomers
+            // CustomerID
             // 
-            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomers.Location = new Point(12, 102);
-            dgvCustomers.Name = "dgvCustomers";
-            dgvCustomers.Size = new Size(691, 338);
-            dgvCustomers.TabIndex = 2;
-            dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
+            CustomerID.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            CustomerID.DataPropertyName = "CustomerID";
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            CustomerID.DefaultCellStyle = dataGridViewCellStyle9;
+            CustomerID.HeaderText = "ID";
+            CustomerID.MinimumWidth = 6;
+            CustomerID.Name = "CustomerID";
+            CustomerID.ReadOnly = true;
             // 
-            // txtSearch
+            // FullName
             // 
-            txtSearch.Location = new Point(12, 62);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(300, 25);
-            txtSearch.TabIndex = 0;
-            txtSearch.KeyDown += txtSearch_KeyDown;
+            FullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            FullName.DataPropertyName = "FullName";
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            FullName.DefaultCellStyle = dataGridViewCellStyle10;
+            FullName.HeaderText = "Full Name";
+            FullName.MinimumWidth = 6;
+            FullName.Name = "FullName";
+            FullName.ReadOnly = true;
             // 
-            // btnSearch
+            // Address
             // 
-            btnSearch.Location = new Point(318, 62);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(75, 26);
-            btnSearch.TabIndex = 1;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
-            btnSearch.Click += btnSearch_Click;
+            Address.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Address.DataPropertyName = "Address";
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Address.DefaultCellStyle = dataGridViewCellStyle11;
+            Address.HeaderText = "Address";
+            Address.MinimumWidth = 6;
+            Address.Name = "Address";
+            Address.ReadOnly = true;
+            // 
+            // ContactNumber
+            // 
+            ContactNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ContactNumber.DataPropertyName = "ContactNumber";
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            ContactNumber.DefaultCellStyle = dataGridViewCellStyle12;
+            ContactNumber.HeaderText = "Contact No.";
+            ContactNumber.MinimumWidth = 6;
+            ContactNumber.Name = "ContactNumber";
+            ContactNumber.ReadOnly = true;
+            // 
+            // Email
+            // 
+            Email.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Email.DataPropertyName = "Email";
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Email.DefaultCellStyle = dataGridViewCellStyle13;
+            Email.HeaderText = "Email";
+            Email.MinimumWidth = 6;
+            Email.Name = "Email";
+            Email.ReadOnly = true;
+            // 
+            // Balance
+            // 
+            Balance.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Balance.DataPropertyName = "Balance";
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Balance.DefaultCellStyle = dataGridViewCellStyle14;
+            Balance.HeaderText = "Balance";
+            Balance.MinimumWidth = 6;
+            Balance.Name = "Balance";
+            Balance.ReadOnly = true;
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitle.Location = new Point(12, 17);
+            lblTitle.Location = new Point(44, 25);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(133, 25);
-            lblTitle.TabIndex = 3;
+            lblTitle.Size = new Size(196, 38);
+            lblTitle.TabIndex = 0;
             lblTitle.Text = "Customer List";
             lblTitle.Click += lblTitle_Click;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(697, 62);
+            btnAdd.Location = new Point(44, 474);
+            btnAdd.Margin = new Padding(4, 5, 4, 5);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 26);
-            btnAdd.TabIndex = 4;
-            btnAdd.Text = "Add";
+            btnAdd.Size = new Size(154, 36);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Add Customer";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(591, 64);
+            btnDelete.Location = new Point(224, 474);
+            btnDelete.Margin = new Padding(4, 5, 4, 5);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 23);
-            btnDelete.TabIndex = 6;
+            btnDelete.Size = new Size(118, 36);
+            btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
+            // btnLogout
+            // 
+            btnLogout.Location = new Point(369, 474);
+            btnLogout.Margin = new Padding(4, 5, 4, 5);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(118, 36);
+            btnLogout.TabIndex = 4;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(412, 31);
+            txtSearch.Margin = new Padding(4, 5, 4, 5);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(295, 31);
+            txtSearch.TabIndex = 5;
+            txtSearch.Text = "Billing System v1.0 – Customer List (K.S.)";
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            txtSearch.KeyPress += txtSearch_KeyPress;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(776, 31);
+            btnSearch.Margin = new Padding(4, 5, 4, 5);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(118, 36);
+            btnSearch.TabIndex = 6;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // btnAnalytics
+            // 
+            btnAnalytics.Location = new Point(506, 475);
+            btnAnalytics.Name = "btnAnalytics";
+            btnAnalytics.Size = new Size(112, 34);
+            btnAnalytics.TabIndex = 7;
+            btnAnalytics.Text = "Analytics";
+            btnAnalytics.UseVisualStyleBackColor = true;
+            btnAnalytics.Click += btnAnalytics_Click;
+            // 
             // btnExportExcel
             // 
-            btnExportExcel.Location = new Point(419, 57);
+            btnExportExcel.Location = new Point(639, 475);
             btnExportExcel.Name = "btnExportExcel";
-            btnExportExcel.Size = new Size(113, 32);
-            btnExportExcel.TabIndex = 7;
-            btnExportExcel.Text = " Export to Excel";
+            btnExportExcel.Size = new Size(150, 34);
+            btnExportExcel.TabIndex = 8;
+            btnExportExcel.Text = "Export to Excel";
             btnExportExcel.UseVisualStyleBackColor = true;
             btnExportExcel.Click += btnExportExcel_Click;
             // 
+            // dgvCustomers
+            // 
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
+            dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvCustomers.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCustomers.BackgroundColor = SystemColors.ButtonHighlight;
+            dgvCustomers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance });
+            dgvCustomers.EnableHeadersVisualStyles = false;
+            dgvCustomers.Location = new Point(36, 111);
+            dgvCustomers.Margin = new Padding(5, 6, 5, 6);
+            dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.ReadOnly = true;
+            dgvCustomers.RowHeadersVisible = false;
+            dgvCustomers.RowHeadersWidth = 51;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvCustomers.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomers.Size = new Size(1149, 412);
+            dgvCustomers.TabIndex = 1;
+            dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
+            // 
             // btnExportPdf
             // 
-            btnExportPdf.Location = new Point(419, 17);
+            btnExportPdf.Location = new Point(806, 475);
             btnExportPdf.Name = "btnExportPdf";
-            btnExportPdf.Size = new Size(113, 34);
-            btnExportPdf.TabIndex = 8;
-            btnExportPdf.Text = "  Export to PDF";
+            btnExportPdf.Size = new Size(150, 34);
+            btnExportPdf.TabIndex = 9;
+            btnExportPdf.Text = "Export to PDF";
             btnExportPdf.UseVisualStyleBackColor = true;
             btnExportPdf.Click += btnExportPdf_Click;
             // 
             // CustomerListForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 522);
+            ClientSize = new Size(978, 566);
             Controls.Add(btnExportPdf);
             Controls.Add(btnExportExcel);
-            Controls.Add(btnDelete);
-            Controls.Add(btnAdd);
-            Controls.Add(lblTitle);
-            Controls.Add(dgvCustomers);
+            Controls.Add(btnAnalytics);
             Controls.Add(btnSearch);
             Controls.Add(txtSearch);
+            Controls.Add(btnLogout);
+            Controls.Add(btnDelete);
+            Controls.Add(btnAdd);
+            Controls.Add(dgvCustomers);
+            Controls.Add(lblTitle);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "CustomerListForm";
-            Text = "Customer List";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Bill System- Customer List form (K.S)";
             Load += CustomerListForm_Load;
-            KeyPress += txtSearch_KeyPress;
-            StyleChanged += dgvCustomers_SelectionChanged;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -132,12 +271,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridView dgvCustomers;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnAdd;
+        private Label lblTitle;
+        private DataGridView dgvCustomers;
+        private Button btnAdd;
         private Button btnDelete;
+        private Button btnLogout;
+        private TextBox txtSearch;
+        private Button btnSearch;
+        private DataGridViewTextBoxColumn CustomerID;
+        private DataGridViewTextBoxColumn FullName;
+        private DataGridViewTextBoxColumn Address;
+        private DataGridViewTextBoxColumn ContactNumber;
+        private DataGridViewTextBoxColumn Email;
+        private DataGridViewTextBoxColumn Balance;
+        private Button btnAnalytics;
         private Button btnExportExcel;
         private Button btnExportPdf;
     }

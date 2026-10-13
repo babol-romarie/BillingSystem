@@ -28,200 +28,192 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitle = new Label();
-            lblTotalCustomers = new Label();
-            lblTotalRevenue = new Label();
-            lblTotalUnpaid = new Label();
-            lblTop5Title = new Label();
             dgvTop5 = new DataGridView();
             FullName = new DataGridViewTextBoxColumn();
             TotalConsumption = new DataGridViewTextBoxColumn();
             TotalBilled = new DataGridViewTextBoxColumn();
-            btnCloseAnalytics = new Button();
-            panel1 = new Panel();
-            panel2 = new Panel();
-            panel3 = new Panel();
             plotMonthlyRevenue = new ScottPlot.WinForms.FormsPlot();
+            lblTotalCustomers = new Label();
+            lblTotalRevenue = new Label();
+            lblTotalUnpaid = new Label();
             plotPaidUnpaid = new ScottPlot.WinForms.FormsPlot();
+            btnCloseAnalytics = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTop5).BeginInit();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            panel3.SuspendLayout();
             SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(389, 9);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(193, 25);
-            lblTitle.TabIndex = 0;
-            lblTitle.Text = "Analytics Dashboard";
-            // 
-            // lblTotalCustomers
-            // 
-            lblTotalCustomers.AutoSize = true;
-            lblTotalCustomers.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalCustomers.Location = new Point(46, 11);
-            lblTotalCustomers.MaximumSize = new Size(200, 250);
-            lblTotalCustomers.Name = "lblTotalCustomers";
-            lblTotalCustomers.Size = new Size(104, 15);
-            lblTotalCustomers.TabIndex = 1;
-            lblTotalCustomers.Text = "Total Customers: 0";
-            // 
-            // lblTotalRevenue
-            // 
-            lblTotalRevenue.AutoSize = true;
-            lblTotalRevenue.Location = new Point(27, 11);
-            lblTotalRevenue.Name = "lblTotalRevenue";
-            lblTotalRevenue.Size = new Size(128, 17);
-            lblTotalRevenue.TabIndex = 2;
-            lblTotalRevenue.Text = "Total Revenue: ₱0.00";
-            // 
-            // lblTotalUnpaid
-            // 
-            lblTotalUnpaid.AutoSize = true;
-            lblTotalUnpaid.Location = new Point(32, 11);
-            lblTotalUnpaid.Name = "lblTotalUnpaid";
-            lblTotalUnpaid.Size = new Size(121, 17);
-            lblTotalUnpaid.TabIndex = 3;
-            lblTotalUnpaid.Text = "Total Unpaid: ₱0.00";
-            // 
-            // lblTop5Title
-            // 
-            lblTop5Title.AutoSize = true;
-            lblTop5Title.Location = new Point(109, 341);
-            lblTop5Title.Name = "lblTop5Title";
-            lblTop5Title.Size = new Size(206, 17);
-            lblTop5Title.TabIndex = 6;
-            lblTop5Title.Text = "Top 5 Customers by Consumption";
             // 
             // dgvTop5
             // 
+            dgvTop5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTop5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTop5.Columns.AddRange(new DataGridViewColumn[] { FullName, TotalConsumption, TotalBilled });
-            dgvTop5.Location = new Point(137, 367);
+            dgvTop5.Location = new Point(33, 357);
             dgvTop5.Name = "dgvTop5";
-            dgvTop5.Size = new Size(744, 203);
-            dgvTop5.TabIndex = 7;
-            dgvTop5.CellContentClick += dgvTop5_CellContentClick;
+            dgvTop5.RowHeadersWidth = 62;
+            dgvTop5.Size = new Size(795, 225);
+            dgvTop5.TabIndex = 0;
             // 
             // FullName
             // 
-            FullName.HeaderText = "FullName";
+            FullName.HeaderText = "Full Name";
+            FullName.MinimumWidth = 8;
             FullName.Name = "FullName";
             // 
             // TotalConsumption
             // 
-            TotalConsumption.HeaderText = "TotalConsumption";
+            TotalConsumption.HeaderText = "Total Consumption";
+            TotalConsumption.MinimumWidth = 8;
             TotalConsumption.Name = "TotalConsumption";
             // 
             // TotalBilled
             // 
-            TotalBilled.HeaderText = "TotalBilled";
+            TotalBilled.HeaderText = "Total Billed";
+            TotalBilled.MinimumWidth = 8;
             TotalBilled.Name = "TotalBilled";
+            // 
+            // plotMonthlyRevenue
+            // 
+            plotMonthlyRevenue.Location = new Point(85, 101);
+            plotMonthlyRevenue.Name = "plotMonthlyRevenue";
+            plotMonthlyRevenue.Size = new Size(317, 225);
+            plotMonthlyRevenue.TabIndex = 1;
+            // 
+            // lblTotalCustomers
+            // 
+            lblTotalCustomers.AutoSize = true;
+            lblTotalCustomers.Location = new Point(42, 73);
+            lblTotalCustomers.Name = "lblTotalCustomers";
+            lblTotalCustomers.Size = new Size(32, 25);
+            lblTotalCustomers.TabIndex = 2;
+            lblTotalCustomers.Text = "10";
+            // 
+            // lblTotalRevenue
+            // 
+            lblTotalRevenue.AutoSize = true;
+            lblTotalRevenue.Location = new Point(409, 73);
+            lblTotalRevenue.Name = "lblTotalRevenue";
+            lblTotalRevenue.Size = new Size(101, 25);
+            lblTotalRevenue.TabIndex = 3;
+            lblTotalRevenue.Text = "₱11,000.00";
+            // 
+            // lblTotalUnpaid
+            // 
+            lblTotalUnpaid.AutoSize = true;
+            lblTotalUnpaid.Location = new Point(762, 73);
+            lblTotalUnpaid.Name = "lblTotalUnpaid";
+            lblTotalUnpaid.Size = new Size(91, 25);
+            lblTotalUnpaid.TabIndex = 4;
+            lblTotalUnpaid.Text = "₱4,000.00";
+            // 
+            // plotPaidUnpaid
+            // 
+            plotPaidUnpaid.Location = new Point(493, 101);
+            plotPaidUnpaid.Name = "plotPaidUnpaid";
+            plotPaidUnpaid.Size = new Size(326, 225);
+            plotPaidUnpaid.TabIndex = 5;
+            plotPaidUnpaid.Load += plotPaidUnpaid_Load;
             // 
             // btnCloseAnalytics
             // 
-            btnCloseAnalytics.Location = new Point(860, 576);
+            btnCloseAnalytics.Location = new Point(854, 548);
             btnCloseAnalytics.Name = "btnCloseAnalytics";
-            btnCloseAnalytics.Size = new Size(75, 23);
-            btnCloseAnalytics.TabIndex = 8;
+            btnCloseAnalytics.Size = new Size(112, 34);
+            btnCloseAnalytics.TabIndex = 6;
             btnCloseAnalytics.Text = "Close";
             btnCloseAnalytics.UseVisualStyleBackColor = true;
             btnCloseAnalytics.Click += btnCloseAnalytics_Click;
             // 
-            // panel1
+            // label1
             // 
-            panel1.Controls.Add(lblTotalCustomers);
-            panel1.Location = new Point(165, 37);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(201, 88);
-            panel1.TabIndex = 9;
-            panel1.Paint += panel1_Paint;
+            label1.AutoSize = true;
+            label1.Location = new Point(42, 48);
+            label1.Name = "label1";
+            label1.Size = new Size(139, 25);
+            label1.TabIndex = 7;
+            label1.Text = "Total Customers";
             // 
-            // panel2
+            // label2
             // 
-            panel2.Controls.Add(lblTotalRevenue);
-            panel2.Location = new Point(389, 37);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(200, 88);
-            panel2.TabIndex = 10;
+            label2.AutoSize = true;
+            label2.Location = new Point(409, 48);
+            label2.Name = "label2";
+            label2.Size = new Size(120, 25);
+            label2.TabIndex = 8;
+            label2.Text = "Total Revenue";
             // 
-            // panel3
+            // label3
             // 
-            panel3.Controls.Add(lblTotalUnpaid);
-            panel3.Location = new Point(617, 37);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(200, 88);
-            panel3.TabIndex = 11;
+            label3.AutoSize = true;
+            label3.Location = new Point(762, 48);
+            label3.Name = "label3";
+            label3.Size = new Size(111, 25);
+            label3.TabIndex = 9;
+            label3.Text = "Total Unpaid";
             // 
-            // plotMonthlyRevenue
+            // label4
             // 
-            plotMonthlyRevenue.Location = new Point(177, 144);
-            plotMonthlyRevenue.Name = "plotMonthlyRevenue";
-            plotMonthlyRevenue.Size = new Size(288, 169);
-            plotMonthlyRevenue.TabIndex = 12;
-            plotMonthlyRevenue.Tag = "";
-            plotMonthlyRevenue.Load += plotMonthlyRevenue_Load;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 14F);
+            label4.Location = new Point(355, 9);
+            label4.Name = "label4";
+            label4.Size = new Size(269, 38);
+            label4.TabIndex = 10;
+            label4.Text = "Analytics Dashboard";
             // 
-            // plotPaidUnpaid
+            // label5
             // 
-            plotPaidUnpaid.Location = new Point(529, 144);
-            plotPaidUnpaid.Name = "plotPaidUnpaid";
-            plotPaidUnpaid.Size = new Size(273, 169);
-            plotPaidUnpaid.TabIndex = 13;
-            plotPaidUnpaid.Load += plotPaidUnpaid_Load;
+            label5.AutoSize = true;
+            label5.Location = new Point(33, 329);
+            label5.Name = "label5";
+            label5.Size = new Size(284, 25);
+            label5.TabIndex = 11;
+            label5.Text = "Top 5 Customers by Consumption";
             // 
             // frmAnalytics
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(984, 611);
-            Controls.Add(panel3);
-            Controls.Add(plotPaidUnpaid);
-            Controls.Add(plotMonthlyRevenue);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            ClientSize = new Size(978, 594);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(btnCloseAnalytics);
+            Controls.Add(plotPaidUnpaid);
+            Controls.Add(lblTotalUnpaid);
+            Controls.Add(lblTotalRevenue);
+            Controls.Add(lblTotalCustomers);
+            Controls.Add(plotMonthlyRevenue);
             Controls.Add(dgvTop5);
-            Controls.Add(lblTop5Title);
-            Controls.Add(lblTitle);
             Name = "frmAnalytics";
             StartPosition = FormStartPosition.CenterScreen;
-            Tag = "";
             Text = "Billing System - Analytics Dashboard";
-            WindowState = FormWindowState.Maximized;
-            Load += frmAnalytics_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTop5).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label lblTitle;
-        private Label lblTotalCustomers;
-        private Label lblTotalRevenue;
-        private Label lblTotalUnpaid;
-        private Label lblTop5Title;
         private DataGridView dgvTop5;
-        private Button btnCloseAnalytics;
-        private Panel panel1;
-        private Panel panel2;
-        private Panel panel3;
-        private ScottPlot.WinForms.FormsPlot plotMonthlyRevenue;
-        private ScottPlot.WinForms.FormsPlot plotPaidUnpaid;
         private DataGridViewTextBoxColumn FullName;
         private DataGridViewTextBoxColumn TotalConsumption;
         private DataGridViewTextBoxColumn TotalBilled;
+        private ScottPlot.WinForms.FormsPlot plotMonthlyRevenue;
+        private Label lblTotalCustomers;
+        private Label lblTotalRevenue;
+        private Label lblTotalUnpaid;
+        private ScottPlot.WinForms.FormsPlot plotPaidUnpaid;
+        private Button btnCloseAnalytics;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
     }
 }
