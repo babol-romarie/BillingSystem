@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using BillingSystem.Database;
 using ScottPlot;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BillingSystem
 {
@@ -17,6 +18,8 @@ namespace BillingSystem
         public frmAnalytics()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Minimized;
+
             // Configure grid for editable cells and user-resizable columns
             dgvTop5.AutoGenerateColumns = false;
 
@@ -219,7 +222,47 @@ namespace BillingSystem
                 double[] positions = new double[months.Count];
                 for (int i = 0; i < months.Count; i++) positions[i] = i;
 
-                plotMonthlyRevenue.Plot.Axes.Bottom.SetTicks(positions, months.ToArray());
+                // Create abbreviated month labels (e.g., Jan, Feb, Mar)
+                var labels = new string[months.Count];
+                for (int i = 0; i < months.Count; i++)
+                {
+                    string mstr = months[i];
+                    DateTime dt;
+                    // Try general parse first (handles many formats like "January 2026")
+                    if (DateTime.TryParse(mstr, out dt))
+                    {
+                        labels[i] = dt.ToString("MMM", CultureInfo.InvariantCulture);
+                        continue;
+                    }
+
+                    // Try exact "MMMM yyyy" pattern
+                    if (DateTime.TryParseExact(mstr, "MMMM yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                    {
+                        labels[i] = dt.ToString("MMM", CultureInfo.InvariantCulture);
+                        continue;
+                    }
+
+                    // Fallback: attempt to match the first token to month names
+                    var first = mstr.Split(' ')[0];
+                    if (!string.IsNullOrEmpty(first))
+                    {
+                        var monthNames = CultureInfo.InvariantCulture.DateTimeFormat.MonthNames;
+                        for (int mi = 0; mi < 12; mi++)
+                        {
+                            if (string.Equals(first, monthNames[mi], StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(first, CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthNames[mi], StringComparison.OrdinalIgnoreCase))
+                            {
+                                labels[i] = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedMonthNames[mi];
+                                break;
+                            }
+                        }
+                    }
+
+                    // Last resort: first 3 characters
+                    if (string.IsNullOrEmpty(labels[i])) labels[i] = mstr.Length >= 3 ? mstr.Substring(0, 3) : mstr;
+                }
+
+                plotMonthlyRevenue.Plot.Axes.Bottom.SetTicks(positions, labels);
                 plotMonthlyRevenue.Plot.Title("Monthly Revenue (Paid Bills)");
                 plotMonthlyRevenue.Plot.YLabel("Revenue (₱)");
                 plotMonthlyRevenue.Plot.XLabel("Month");

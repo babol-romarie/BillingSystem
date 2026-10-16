@@ -36,10 +36,10 @@
             plotPaidUnpaid = new ScottPlot.WinForms.FormsPlot();
             lblTop5Title = new Label();
             dgvTop5 = new DataGridView();
+            btnCloseAnalytics = new Button();
             FullName = new DataGridViewTextBoxColumn();
             TotalConsumption = new DataGridViewTextBoxColumn();
             TotalBilled = new DataGridViewTextBoxColumn();
-            btnCloseAnalytics = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTop5).BeginInit();
             SuspendLayout();
             // 
@@ -120,27 +120,6 @@
             dgvTop5.TabIndex = 7;
             dgvTop5.CellContentClick += dgvTop5_CellContentClick;
             // 
-            // FullName
-            // 
-            FullName.FillWeight = 40F;
-            FullName.HeaderText = "FullName";
-            FullName.MinimumWidth = 6;
-            FullName.Name = "FullName";
-            // 
-            // TotalConsumption
-            // 
-            TotalConsumption.FillWeight = 30F;
-            TotalConsumption.HeaderText = "TotalConsumption";
-            TotalConsumption.MinimumWidth = 6;
-            TotalConsumption.Name = "TotalConsumption";
-            // 
-            // TotalBilled
-            // 
-            TotalBilled.FillWeight = 30F;
-            TotalBilled.HeaderText = "TotalBilled";
-            TotalBilled.MinimumWidth = 6;
-            TotalBilled.Name = "TotalBilled";
-            // 
             // btnCloseAnalytics
             // 
             btnCloseAnalytics.Location = new Point(816, 562);
@@ -150,6 +129,30 @@
             btnCloseAnalytics.Text = "Close";
             btnCloseAnalytics.UseVisualStyleBackColor = true;
             btnCloseAnalytics.Click += btnCloseAnalytics_Click;
+            // 
+            // FullName
+            // 
+            FullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            FullName.FillWeight = 40F;
+            FullName.HeaderText = "FullName";
+            FullName.MinimumWidth = 6;
+            FullName.Name = "FullName";
+            // 
+            // TotalConsumption
+            // 
+            TotalConsumption.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TotalConsumption.FillWeight = 30F;
+            TotalConsumption.HeaderText = "TotalConsumption";
+            TotalConsumption.MinimumWidth = 6;
+            TotalConsumption.Name = "TotalConsumption";
+            // 
+            // TotalBilled
+            // 
+            TotalBilled.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TotalBilled.FillWeight = 30F;
+            TotalBilled.HeaderText = "TotalBilled";
+            TotalBilled.MinimumWidth = 6;
+            TotalBilled.Name = "TotalBilled";
             // 
             // frmAnalytics
             // 
