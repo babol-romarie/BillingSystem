@@ -36,10 +36,10 @@
             plotPaidUnpaid = new ScottPlot.WinForms.FormsPlot();
             lblTop5Title = new Label();
             dgvTop5 = new DataGridView();
-            btnCloseAnalytics = new Button();
             FullName = new DataGridViewTextBoxColumn();
             TotalConsumption = new DataGridViewTextBoxColumn();
             TotalBilled = new DataGridViewTextBoxColumn();
+            btnCloseAnalytics = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTop5).BeginInit();
             SuspendLayout();
             // 
@@ -120,16 +120,6 @@
             dgvTop5.TabIndex = 7;
             dgvTop5.CellContentClick += dgvTop5_CellContentClick;
             // 
-            // btnCloseAnalytics
-            // 
-            btnCloseAnalytics.Location = new Point(816, 562);
-            btnCloseAnalytics.Name = "btnCloseAnalytics";
-            btnCloseAnalytics.Size = new Size(94, 29);
-            btnCloseAnalytics.TabIndex = 8;
-            btnCloseAnalytics.Text = "Close";
-            btnCloseAnalytics.UseVisualStyleBackColor = true;
-            btnCloseAnalytics.Click += btnCloseAnalytics_Click;
-            // 
             // FullName
             // 
             FullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -154,6 +144,16 @@
             TotalBilled.MinimumWidth = 6;
             TotalBilled.Name = "TotalBilled";
             // 
+            // btnCloseAnalytics
+            // 
+            btnCloseAnalytics.Location = new Point(816, 562);
+            btnCloseAnalytics.Name = "btnCloseAnalytics";
+            btnCloseAnalytics.Size = new Size(94, 29);
+            btnCloseAnalytics.TabIndex = 8;
+            btnCloseAnalytics.Text = "Close";
+            btnCloseAnalytics.UseVisualStyleBackColor = true;
+            btnCloseAnalytics.Click += btnCloseAnalytics_Click;
+            // 
             // frmAnalytics
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -171,7 +171,7 @@
             Name = "frmAnalytics";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Billing System - Analytics Dashboard";
-            WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Minimized;
             Load += frmAnalytics_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTop5).EndInit();
             ResumeLayout(false);

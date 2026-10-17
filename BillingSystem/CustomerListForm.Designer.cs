@@ -26,6 +26,8 @@ namespace BillingSystem
             btnAnalytics = new Button();
             btnExportExcel = new Button();
             btnExportPdf = new Button();
+            btnAuditLog = new Button();
+            btnManagePermissions = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             SuspendLayout();
             // 
@@ -102,7 +104,7 @@ namespace BillingSystem
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(43, 379);
+            btnAdd.Location = new Point(112, 304);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(128, 29);
             btnAdd.TabIndex = 2;
@@ -112,7 +114,7 @@ namespace BillingSystem
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(177, 379);
+            btnDelete.Location = new Point(339, 304);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 3;
@@ -122,12 +124,13 @@ namespace BillingSystem
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(277, 379);
+            btnLogout.Location = new Point(554, 304);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // txtSearch
             // 
@@ -148,7 +151,7 @@ namespace BillingSystem
             // 
             // btnAnalytics
             // 
-            btnAnalytics.Location = new Point(377, 379);
+            btnAnalytics.Location = new Point(339, 358);
             btnAnalytics.Name = "btnAnalytics";
             btnAnalytics.Size = new Size(94, 29);
             btnAnalytics.TabIndex = 7;
@@ -158,7 +161,7 @@ namespace BillingSystem
             // 
             // btnExportExcel
             // 
-            btnExportExcel.Location = new Point(477, 379);
+            btnExportExcel.Location = new Point(112, 358);
             btnExportExcel.Name = "btnExportExcel";
             btnExportExcel.Size = new Size(128, 29);
             btnExportExcel.TabIndex = 8;
@@ -168,7 +171,7 @@ namespace BillingSystem
             // 
             // btnExportPdf
             // 
-            btnExportPdf.Location = new Point(611, 379);
+            btnExportPdf.Location = new Point(541, 358);
             btnExportPdf.Name = "btnExportPdf";
             btnExportPdf.Size = new Size(122, 29);
             btnExportPdf.TabIndex = 9;
@@ -176,9 +179,31 @@ namespace BillingSystem
             btnExportPdf.UseVisualStyleBackColor = true;
             btnExportPdf.Click += btnExportPdf_Click;
             // 
+            // btnAuditLog
+            // 
+            btnAuditLog.Location = new Point(244, 412);
+            btnAuditLog.Name = "btnAuditLog";
+            btnAuditLog.Size = new Size(94, 29);
+            btnAuditLog.TabIndex = 10;
+            btnAuditLog.Text = "Audit Log";
+            btnAuditLog.UseVisualStyleBackColor = true;
+            btnAuditLog.Click += btnAuditLog_Click;
+            // 
+            // btnManagePermissions
+            // 
+            btnManagePermissions.Location = new Point(403, 412);
+            btnManagePermissions.Name = "btnManagePermissions";
+            btnManagePermissions.Size = new Size(161, 29);
+            btnManagePermissions.TabIndex = 11;
+            btnManagePermissions.Text = "Manage Permissions";
+            btnManagePermissions.UseVisualStyleBackColor = true;
+            btnManagePermissions.Click += btnManagePermissions_Click;
+            // 
             // CustomerListForm
             // 
             ClientSize = new Size(782, 453);
+            Controls.Add(btnManagePermissions);
+            Controls.Add(btnAuditLog);
             Controls.Add(btnExportPdf);
             Controls.Add(btnExportExcel);
             Controls.Add(btnAnalytics);
@@ -214,5 +239,7 @@ namespace BillingSystem
         private Button btnAnalytics;
         private Button btnExportExcel;
         private Button btnExportPdf;
+        private Button btnAuditLog;
+        private Button btnManagePermissions;
     }
 }

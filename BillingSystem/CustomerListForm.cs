@@ -1,16 +1,18 @@
-﻿using System;
+﻿using BillingSystem.Database;
+using BillingSystem.Utils;
+using ClosedXML.Excel;
+using MySql.Data.MySqlClient;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using BillingSystem.Database;
-using ClosedXML.Excel;
-using System.IO;
-using PdfSharp.Pdf;
-using PdfSharp.Drawing;
+using BillingSystem.Utils;
 
 
 
@@ -124,6 +126,10 @@ namespace BillingSystem
                 }
                 catch { }
             };
+
+            AuditLogger.Log("VIEW_ANALYTICS",
+             $"{AppSession.CurrentUsername} opened the Analytics Dashboard.");
+
 
             analyticsForm.ShowDialog(this);
         }
@@ -333,6 +339,11 @@ namespace BillingSystem
 
                             LoadCustomers();   // Refresh the grid
                             _selectedCustomerId = 0;   // Clear selection tracker
+
+                            AuditLogger.Log("DELETE_CUSTOMER",
+                            $"Customer ID {customerId} deleted by {AppSession.CurrentUsername}.");
+
+
                         }
                         else
                         {
@@ -489,6 +500,11 @@ namespace BillingSystem
 
                     MessageBox.Show("Customer list exported successfully to Excel.",
                         "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    AuditLogger.Log("EXPORT_EXCEL",
+                    $"{AppSession.CurrentUsername} exported customer list to Excel.");
+
+
                 }
                 catch (Exception ex)
                 {
@@ -586,6 +602,11 @@ namespace BillingSystem
 
                     MessageBox.Show("Customer list exported successfully to PDF.",
                         "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    AuditLogger.Log("EXPORT_PDF",
+                    $"{AppSession.CurrentUsername} exported customer list to PDF.");
+
+
                 }
                 catch (Exception ex)
                 {
@@ -593,6 +614,26 @@ namespace BillingSystem
                         "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            AuditLogger.Log("LOGOUT",
+                 $"{AppSession.CurrentFullName} ({AppSession.CurrentRole}) logged out.");
+            AppSession.Clear();
+
+        }
+
+        private void btnAuditLog_Click(object sender, EventArgs e)
+        {
+            frmAuditLogs auditForm = new frmAuditLogs();
+            auditForm.ShowDialog(this);
+        }
+
+        private void btnManagePermissions_Click(object sender, EventArgs e)
+        {
+            frmManagePermissions permForm = new frmManagePermissions();
+            permForm.ShowDialog(this);
         }
     }
 }

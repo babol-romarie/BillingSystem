@@ -2,6 +2,7 @@ using BillingSystem.Database;
 using MySql.Data.MySqlClient;
 using System;
 using System.Windows.Forms;
+using BillingSystem.Utils;
 
 namespace BillingSystem
 {
@@ -122,6 +123,9 @@ namespace BillingSystem
                                 "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             ClearFields();
+
+                            AuditLogger.Log("ADD_CUSTOMER",
+                             $"New customer '{txtFullName.Text.Trim()}' added by {AppSession.CurrentUsername}.");
                         }
                     }
                 }
@@ -183,6 +187,10 @@ namespace BillingSystem
                         {
                             MessageBox.Show("Customer updated successfully.",
                                 "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            AuditLogger.Log("EDIT_CUSTOMER",
+                            $"Customer ID {_editCustomerId} updated by {AppSession.CurrentUsername}.");
+
 
                             // Close the form — CustomerListForm will refresh on close
                             this.Close();

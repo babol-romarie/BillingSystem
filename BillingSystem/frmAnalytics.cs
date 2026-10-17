@@ -78,7 +78,7 @@ namespace BillingSystem
                 plotPaidUnpaid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             }
             catch { }
-        }  
+        }
 
         private void lblTitle_Click(object sender, EventArgs e)
         {
@@ -371,7 +371,9 @@ namespace BillingSystem
             }
         }
 
+        private void frmAuditLogs_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }
