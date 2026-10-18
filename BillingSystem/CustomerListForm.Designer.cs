@@ -9,6 +9,7 @@ namespace BillingSystem
 
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lblTitle = new Label();
             dgvCustomers = new DataGridView();
             CustomerID = new DataGridViewTextBoxColumn();
@@ -28,7 +29,13 @@ namespace BillingSystem
             btnExportPdf = new Button();
             btnAuditLog = new Button();
             btnManagePermissions = new Button();
+            statusStrip1 = new StatusStrip();
+            lblStatusUser = new ToolStripStatusLabel();
+            lblStatusSep = new ToolStripStatusLabel();
+            lblStatusTime = new ToolStripStatusLabel();
+            statusTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
@@ -49,13 +56,14 @@ namespace BillingSystem
             dgvCustomers.BackgroundColor = SystemColors.Control;
             dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance, Status });
-            dgvCustomers.Location = new Point(21, 91);
+            dgvCustomers.Location = new Point(21, 50);
             dgvCustomers.Name = "dgvCustomers";
             dgvCustomers.RowHeadersWidth = 51;
             dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.Size = new Size(740, 188);
+            dgvCustomers.Size = new Size(740, 229);
             dgvCustomers.TabIndex = 1;
             dgvCustomers.CellContentClick += dgvCustomers_CellContentClick;
+            dgvCustomers.CellFormatting += dgvCustomers_CellFormatting;
             dgvCustomers.SelectionChanged += dgvCustomers_SelectionChanged;
             // 
             // CustomerID
@@ -151,7 +159,7 @@ namespace BillingSystem
             // 
             // btnAnalytics
             // 
-            btnAnalytics.Location = new Point(339, 358);
+            btnAnalytics.Location = new Point(339, 339);
             btnAnalytics.Name = "btnAnalytics";
             btnAnalytics.Size = new Size(94, 29);
             btnAnalytics.TabIndex = 7;
@@ -161,7 +169,7 @@ namespace BillingSystem
             // 
             // btnExportExcel
             // 
-            btnExportExcel.Location = new Point(112, 358);
+            btnExportExcel.Location = new Point(112, 339);
             btnExportExcel.Name = "btnExportExcel";
             btnExportExcel.Size = new Size(128, 29);
             btnExportExcel.TabIndex = 8;
@@ -171,7 +179,7 @@ namespace BillingSystem
             // 
             // btnExportPdf
             // 
-            btnExportPdf.Location = new Point(541, 358);
+            btnExportPdf.Location = new Point(541, 339);
             btnExportPdf.Name = "btnExportPdf";
             btnExportPdf.Size = new Size(122, 29);
             btnExportPdf.TabIndex = 9;
@@ -181,7 +189,7 @@ namespace BillingSystem
             // 
             // btnAuditLog
             // 
-            btnAuditLog.Location = new Point(244, 412);
+            btnAuditLog.Location = new Point(251, 374);
             btnAuditLog.Name = "btnAuditLog";
             btnAuditLog.Size = new Size(94, 29);
             btnAuditLog.TabIndex = 10;
@@ -191,7 +199,7 @@ namespace BillingSystem
             // 
             // btnManagePermissions
             // 
-            btnManagePermissions.Location = new Point(403, 412);
+            btnManagePermissions.Location = new Point(410, 374);
             btnManagePermissions.Name = "btnManagePermissions";
             btnManagePermissions.Size = new Size(161, 29);
             btnManagePermissions.TabIndex = 11;
@@ -199,9 +207,44 @@ namespace BillingSystem
             btnManagePermissions.UseVisualStyleBackColor = true;
             btnManagePermissions.Click += btnManagePermissions_Click;
             // 
+            // statusStrip1
+            // 
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { lblStatusUser, lblStatusSep, lblStatusTime });
+            statusStrip1.Location = new Point(0, 427);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(782, 26);
+            statusStrip1.TabIndex = 12;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatusUser
+            // 
+            lblStatusUser.Name = "lblStatusUser";
+            lblStatusUser.Size = new Size(151, 20);
+            lblStatusUser.Text = "toolStripStatusLabel1";
+            // 
+            // lblStatusSep
+            // 
+            lblStatusSep.Name = "lblStatusSep";
+            lblStatusSep.Size = new Size(426, 20);
+            lblStatusSep.Spring = true;
+            // 
+            // lblStatusTime
+            // 
+            lblStatusTime.Name = "lblStatusTime";
+            lblStatusTime.Size = new Size(151, 20);
+            lblStatusTime.Text = "toolStripStatusLabel3";
+            // 
+            // statusTimer
+            // 
+            statusTimer.Enabled = true;
+            statusTimer.Interval = 1000;
+            statusTimer.Tick += statusTimer_Tick;
+            // 
             // CustomerListForm
             // 
             ClientSize = new Size(782, 453);
+            Controls.Add(statusStrip1);
             Controls.Add(btnManagePermissions);
             Controls.Add(btnAuditLog);
             Controls.Add(btnExportPdf);
@@ -218,6 +261,8 @@ namespace BillingSystem
             StartPosition = FormStartPosition.CenterScreen;
             Load += CustomerListForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -241,5 +286,11 @@ namespace BillingSystem
         private Button btnExportPdf;
         private Button btnAuditLog;
         private Button btnManagePermissions;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel lblStatusUser;
+        private ToolStripStatusLabel lblStatusSep;
+        private ToolStripStatusLabel lblStatusTime;
+        private System.Windows.Forms.Timer statusTimer;
+        private System.ComponentModel.IContainer components;
     }
 }

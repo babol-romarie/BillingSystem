@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using BillingSystem.Utils;
@@ -24,7 +25,7 @@ namespace BillingSystem
     {
         // Stores the CustomerID of the currently selected row.
         // 0 means no customer is currently selected.
-        private int _selectedCustomerId = 0;
+        private int _selectedCustomerId = 0; private bool _canEdit = true;
 
 
 
@@ -45,6 +46,7 @@ namespace BillingSystem
 
         private void dgvCustomers_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+            if (!_canEdit) return;
             // e.RowIndex is -1 when the header row is double-clicked — ignore it
             if (e.RowIndex < 0) return;
 
@@ -79,13 +81,19 @@ namespace BillingSystem
             // Ensure customers are loaded when the form is constructed
             // (designer Load event may be wired to a different handler)
             LoadCustomers();
+            ApplyPermissions();
+            ApplyTheme();
+            InitStatusStrip();
             // Adjust grid when the form is resized
             this.Resize += CustomerListForm_Resize;
         }
 
         private void CustomerListForm_Load(object? sender, EventArgs e)
         {
+            ApplyTheme();
             LoadCustomers();
+            ApplyPermissions();
+            InitStatusStrip();
         }
 
         private void btnSearch_Click(object? sender, EventArgs e)
@@ -622,6 +630,24 @@ namespace BillingSystem
                  $"{AppSession.CurrentFullName} ({AppSession.CurrentRole}) logged out.");
             AppSession.Clear();
 
+            // LoginForm was only hidden at login, so find it and show it again
+            var login = Application.OpenForms.OfType<LoginForm>().FirstOrDefault();
+
+            // Clear the previous user's username and password
+            if (login != null) ClearTextBoxes(login);
+
+            this.Close();
+            login?.Show();
+        }
+
+        // Empties every textbox on the given form so the next person starts blank
+        private void ClearTextBoxes(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is TextBox tb) tb.Clear();
+                else ClearTextBoxes(c);
+            }
         }
 
         private void btnAuditLog_Click(object sender, EventArgs e)
@@ -635,5 +661,149 @@ namespace BillingSystem
             frmManagePermissions permForm = new frmManagePermissions();
             permForm.ShowDialog(this);
         }
+
+        private void ApplyPermissions()
+        {
+            try
+            {
+                using (var conn = DatabaseConnection.GetConnection())
+                {
+                    conn.Open();
+                    string sql = @"SELECT PermissionName, IsAllowed
+                           FROM   UserPermissions
+                           WHERE  Role = @Role;";
+
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Role", AppSession.CurrentRole);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string permName = reader.GetString("PermissionName");
+                                bool isAllowed = reader.GetBoolean("IsAllowed");
+
+                                switch (permName)
+                                {
+                                    case "AddCustomer":
+                                        btnAdd.Enabled = isAllowed; break;
+                                    case "EditCustomer":
+                                        // Edit is triggered by double-click — remember the
+                                        // permission so CellDoubleClick can check it
+                                        _canEdit = isAllowed;
+                                        break;
+                                    case "DeleteCustomer":
+                                        btnDelete.Enabled = isAllowed; break;
+                                    case "Analytics":
+                                        btnAnalytics.Enabled = isAllowed; break;
+                                    case "ExportExcel":
+                                        btnExportExcel.Enabled = isAllowed; break;
+                                    case "ExportPdf":
+                                        btnExportPdf.Enabled = isAllowed; break;
+                                    case "AuditLogs":
+                                        btnAuditLog.Enabled = isAllowed; break;
+                                    case "ManagePermissions":
+                                        btnManagePermissions.Enabled = isAllowed; break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading permissions:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Call this inside CustomerListForm_Load after ApplyPermissions()
+        private void InitStatusStrip()
+        {
+            lblStatusUser.Text =
+                $"User: {AppSession.CurrentFullName} | Role: {AppSession.CurrentRole}";
+            lblStatusSep.Spring = true;
+            lblStatusTime.Visible = true;
+            lblStatusTime.ForeColor = AppTheme.TextColor;
+            lblStatusTime.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            UpdateClock();
+            lblStatusUser.Text += " | TEST: " + lblStatusTime.Text;
+        }
+
+        private void UpdateClock()
+        {
+            lblStatusTime.Text = DateTime.Now.ToString("dddd, MMMM dd yyyy hh:mm:ss tt");
+        }
+
+        private void statusTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateClock();
+        }
+
+
+        private void ApplyTheme()
+        {
+            // Form background
+            this.BackColor = AppTheme.BackgroundColor;
+
+            // Action buttons
+            btnAdd.BackColor = AppTheme.SuccessColor;
+            btnAdd.ForeColor = Color.White;
+
+            btnDelete.BackColor = AppTheme.DangerColor;
+            btnDelete.ForeColor = Color.White;
+
+            btnAnalytics.BackColor = AppTheme.PrimaryColor;
+            btnAnalytics.ForeColor = Color.White;
+
+            btnExportExcel.BackColor = AppTheme.SecondaryColor;
+            btnExportExcel.ForeColor = Color.White;
+
+            btnExportPdf.BackColor = AppTheme.SecondaryColor;
+            btnExportPdf.ForeColor = Color.White;
+
+            btnAuditLog.BackColor = AppTheme.SecondaryColor;
+            btnAuditLog.ForeColor = Color.White;
+
+            btnManagePermissions.BackColor = AppTheme.DangerColor;
+            btnManagePermissions.ForeColor = Color.White;
+
+            // DataGridView header colors
+            dgvCustomers.ColumnHeadersDefaultCellStyle.BackColor = AppTheme.PrimaryColor;
+            dgvCustomers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCustomers.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9f, FontStyle.Bold);
+
+            // Alternating row colors
+            dgvCustomers.AlternatingRowsDefaultCellStyle.BackColor = AppTheme.GridRowAlt;
+        }
+
+        private void dgvCustomers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Skip the header row
+            if (e.RowIndex < 0) return;
+
+
+            // Read Status from the data behind this row (the DataTable from LoadCustomers)
+            var rowData = dgvCustomers.Rows[e.RowIndex].DataBoundItem as DataRowView;
+            string status = rowData?["Status"]?.ToString() ?? "";
+
+
+            if (status == "Inactive")
+            {
+                // The whole row turns light red
+                e.CellStyle.BackColor = AppTheme.InactiveRowColor;
+            }
+            else if (status == "Active" &&
+                     dgvCustomers.Columns[e.ColumnIndex].DataPropertyName == "Status")
+            {
+                // Only the Status cell turns light green, so the
+                // alternating row colors stay visible
+                e.CellStyle.BackColor = AppTheme.ActiveRowColor;
+            }
+        }
+
+
     }
 }

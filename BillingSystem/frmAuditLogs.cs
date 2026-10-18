@@ -80,6 +80,11 @@ namespace BillingSystem
         {
             this.Close();
         }
+
+        private void dgvAuditLogs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
 

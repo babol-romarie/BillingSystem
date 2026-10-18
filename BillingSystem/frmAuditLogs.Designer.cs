@@ -99,6 +99,7 @@
             dgvAuditLogs.RowHeadersWidth = 51;
             dgvAuditLogs.Size = new Size(792, 316);
             dgvAuditLogs.TabIndex = 6;
+            dgvAuditLogs.CellContentClick += dgvAuditLogs_CellContentClick;
             // 
             // btnClose
             // 
