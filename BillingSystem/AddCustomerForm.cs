@@ -2,6 +2,7 @@ using BillingSystem.Database;
 using MySql.Data.MySqlClient;
 using System;
 using System.Windows.Forms;
+using BillingSystem.Utils;
 
 namespace BillingSystem
 {
@@ -100,6 +101,8 @@ namespace BillingSystem
 
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AuditLogger.Log("ADD_CUSTOMER",
+    $"New customer '{txtFullName.Text.Trim()}' added by {AppSession.CurrentUsername}.");
                         this.Close();
                     }
                 }
@@ -131,6 +134,8 @@ namespace BillingSystem
 
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Customer updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AuditLogger.Log("EDIT_CUSTOMER",
+    $"Customer ID {_editCustomerId} updated by {AppSession.CurrentUsername}.");
                         this.Close();
                     }
                 }

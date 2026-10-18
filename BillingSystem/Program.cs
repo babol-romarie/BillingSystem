@@ -8,8 +8,18 @@ namespace BillingSystem
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            // Start the application at the Analytics dashboard for development/testing.
-            Application.Run(new frmAnalytics());
+            // One-time cleanup: clear Username/Role for historical audit rows
+            // that accidentally recorded machine user or generic role. Adjust
+            // the IDs below as needed. This runs silently if it fails.
+            try
+            {
+                BillingSystem.Utils.AuditLogger.ClearUsernameRoleForLogIds(new int[] { 7, 8, 9 });
+            }
+            catch { }
+
+            // Start the application at the Login form so users must authenticate
+            // before accessing the Customer List and other features.
+            Application.Run(new LoginForm());
         }
     }
 }
