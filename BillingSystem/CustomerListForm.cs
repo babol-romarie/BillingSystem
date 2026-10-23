@@ -804,6 +804,14 @@ namespace BillingSystem
             }
         }
 
+        private void lblStatusSep_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void lblStatusTime_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

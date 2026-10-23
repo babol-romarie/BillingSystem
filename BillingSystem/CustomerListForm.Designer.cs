@@ -228,12 +228,14 @@ namespace BillingSystem
             lblStatusSep.Name = "lblStatusSep";
             lblStatusSep.Size = new Size(426, 20);
             lblStatusSep.Spring = true;
+            lblStatusSep.Click += lblStatusSep_Click;
             // 
             // lblStatusTime
             // 
             lblStatusTime.Name = "lblStatusTime";
             lblStatusTime.Size = new Size(151, 20);
             lblStatusTime.Text = "toolStripStatusLabel3";
+            lblStatusTime.Click += lblStatusTime_Click;
             // 
             // statusTimer
             // 
