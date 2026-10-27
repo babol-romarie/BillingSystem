@@ -813,5 +813,12 @@ namespace BillingSystem
         {
 
         }
+
+        //ACTIVITY 6.1
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            frmChangePassword changePwForm = new frmChangePassword();
+            changePwForm.ShowDialog(this);
+        }
     }
 }

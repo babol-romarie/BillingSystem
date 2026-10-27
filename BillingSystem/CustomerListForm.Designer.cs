@@ -34,6 +34,7 @@ namespace BillingSystem
             lblStatusSep = new ToolStripStatusLabel();
             lblStatusTime = new ToolStripStatusLabel();
             statusTimer = new System.Windows.Forms.Timer(components);
+            btnChangePassword = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -112,6 +113,7 @@ namespace BillingSystem
             // 
             // btnAdd
             // 
+            btnAdd.ForeColor = Color.Black;
             btnAdd.Location = new Point(112, 304);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(128, 29);
@@ -122,6 +124,7 @@ namespace BillingSystem
             // 
             // btnDelete
             // 
+            btnDelete.ForeColor = Color.Black;
             btnDelete.Location = new Point(339, 304);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
@@ -132,26 +135,28 @@ namespace BillingSystem
             // 
             // btnLogout
             // 
+            btnLogout.BackColor = Color.FromArgb(128, 128, 255);
+            btnLogout.ForeColor = Color.White;
             btnLogout.Location = new Point(554, 304);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(437, 15);
+            txtSearch.Location = new Point(350, 15);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(211, 27);
+            txtSearch.Size = new Size(167, 27);
             txtSearch.TabIndex = 5;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(667, 15);
+            btnSearch.Location = new Point(530, 13);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(94, 29);
+            btnSearch.Size = new Size(71, 29);
             btnSearch.TabIndex = 6;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
@@ -159,6 +164,7 @@ namespace BillingSystem
             // 
             // btnAnalytics
             // 
+            btnAnalytics.ForeColor = Color.Black;
             btnAnalytics.Location = new Point(339, 339);
             btnAnalytics.Name = "btnAnalytics";
             btnAnalytics.Size = new Size(94, 29);
@@ -169,16 +175,19 @@ namespace BillingSystem
             // 
             // btnExportExcel
             // 
+            btnExportExcel.BackColor = SystemColors.Control;
+            btnExportExcel.ForeColor = Color.Black;
             btnExportExcel.Location = new Point(112, 339);
             btnExportExcel.Name = "btnExportExcel";
             btnExportExcel.Size = new Size(128, 29);
             btnExportExcel.TabIndex = 8;
             btnExportExcel.Text = "Export to Excel";
-            btnExportExcel.UseVisualStyleBackColor = true;
+            btnExportExcel.UseVisualStyleBackColor = false;
             btnExportExcel.Click += btnExportExcel_Click;
             // 
             // btnExportPdf
             // 
+            btnExportPdf.ForeColor = Color.Black;
             btnExportPdf.Location = new Point(541, 339);
             btnExportPdf.Name = "btnExportPdf";
             btnExportPdf.Size = new Size(122, 29);
@@ -189,6 +198,7 @@ namespace BillingSystem
             // 
             // btnAuditLog
             // 
+            btnAuditLog.ForeColor = Color.Black;
             btnAuditLog.Location = new Point(251, 374);
             btnAuditLog.Name = "btnAuditLog";
             btnAuditLog.Size = new Size(94, 29);
@@ -199,12 +209,14 @@ namespace BillingSystem
             // 
             // btnManagePermissions
             // 
-            btnManagePermissions.Location = new Point(410, 374);
+            btnManagePermissions.BackColor = SystemColors.Control;
+            btnManagePermissions.ForeColor = Color.Black;
+            btnManagePermissions.Location = new Point(609, 12);
             btnManagePermissions.Name = "btnManagePermissions";
             btnManagePermissions.Size = new Size(161, 29);
             btnManagePermissions.TabIndex = 11;
             btnManagePermissions.Text = "Manage Permissions";
-            btnManagePermissions.UseVisualStyleBackColor = true;
+            btnManagePermissions.UseVisualStyleBackColor = false;
             btnManagePermissions.Click += btnManagePermissions_Click;
             // 
             // statusStrip1
@@ -226,7 +238,7 @@ namespace BillingSystem
             // lblStatusSep
             // 
             lblStatusSep.Name = "lblStatusSep";
-            lblStatusSep.Size = new Size(426, 20);
+            lblStatusSep.Size = new Size(465, 20);
             lblStatusSep.Spring = true;
             lblStatusSep.Click += lblStatusSep_Click;
             // 
@@ -243,9 +255,22 @@ namespace BillingSystem
             statusTimer.Interval = 1000;
             statusTimer.Tick += statusTimer_Tick;
             // 
+            // btnChangePassword
+            // 
+            btnChangePassword.BackColor = Color.FromArgb(255, 128, 128);
+            btnChangePassword.ForeColor = Color.White;
+            btnChangePassword.Location = new Point(422, 374);
+            btnChangePassword.Name = "btnChangePassword";
+            btnChangePassword.Size = new Size(132, 29);
+            btnChangePassword.TabIndex = 13;
+            btnChangePassword.Text = "Change Password";
+            btnChangePassword.UseVisualStyleBackColor = false;
+            btnChangePassword.Click += btnChangePassword_Click;
+            // 
             // CustomerListForm
             // 
             ClientSize = new Size(782, 453);
+            Controls.Add(btnChangePassword);
             Controls.Add(statusStrip1);
             Controls.Add(btnManagePermissions);
             Controls.Add(btnAuditLog);
@@ -294,5 +319,6 @@ namespace BillingSystem
         private ToolStripStatusLabel lblStatusTime;
         private System.Windows.Forms.Timer statusTimer;
         private System.ComponentModel.IContainer components;
+        private Button btnChangePassword;
     }
 }
