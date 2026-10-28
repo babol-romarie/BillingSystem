@@ -111,6 +111,7 @@
             // dgvTop5
             // 
             dgvTop5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTop5.BackgroundColor = Color.White;
             dgvTop5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTop5.Columns.AddRange(new DataGridViewColumn[] { FullName, TotalConsumption, TotalBilled });
             dgvTop5.Location = new Point(98, 365);
@@ -146,18 +147,20 @@
             // 
             // btnCloseAnalytics
             // 
+            btnCloseAnalytics.BackColor = Color.SkyBlue;
             btnCloseAnalytics.Location = new Point(816, 562);
             btnCloseAnalytics.Name = "btnCloseAnalytics";
             btnCloseAnalytics.Size = new Size(94, 29);
             btnCloseAnalytics.TabIndex = 8;
             btnCloseAnalytics.Text = "Close";
-            btnCloseAnalytics.UseVisualStyleBackColor = true;
+            btnCloseAnalytics.UseVisualStyleBackColor = false;
             btnCloseAnalytics.Click += btnCloseAnalytics_Click;
             // 
             // frmAnalytics
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightSteelBlue;
             ClientSize = new Size(982, 603);
             Controls.Add(btnCloseAnalytics);
             Controls.Add(dgvTop5);

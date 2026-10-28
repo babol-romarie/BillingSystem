@@ -14,7 +14,7 @@ namespace BillingSystem
         private void SplashScreen_Load(object sender, EventArgs e)
         {
             // Apply AppTheme colors
-            this.BackColor = AppTheme.PrimaryColor;
+            this.BackColor = Utils.AppTheme.PrimaryColor;
 
             // Start the splash timer
             splashTimer.Start();

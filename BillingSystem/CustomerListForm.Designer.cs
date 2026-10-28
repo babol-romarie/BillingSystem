@@ -35,6 +35,7 @@ namespace BillingSystem
             lblStatusTime = new ToolStripStatusLabel();
             statusTimer = new System.Windows.Forms.Timer(components);
             btnChangePassword = new Button();
+            btnViewBilling = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -58,6 +59,7 @@ namespace BillingSystem
             dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerID, FullName, Address, ContactNumber, Email, Balance, Status });
             dgvCustomers.Location = new Point(21, 50);
+            dgvCustomers.MultiSelect = false;
             dgvCustomers.Name = "dgvCustomers";
             dgvCustomers.RowHeadersWidth = 51;
             dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -199,7 +201,7 @@ namespace BillingSystem
             // btnAuditLog
             // 
             btnAuditLog.ForeColor = Color.Black;
-            btnAuditLog.Location = new Point(251, 374);
+            btnAuditLog.Location = new Point(339, 374);
             btnAuditLog.Name = "btnAuditLog";
             btnAuditLog.Size = new Size(94, 29);
             btnAuditLog.TabIndex = 10;
@@ -259,17 +261,28 @@ namespace BillingSystem
             // 
             btnChangePassword.BackColor = Color.FromArgb(255, 128, 128);
             btnChangePassword.ForeColor = Color.White;
-            btnChangePassword.Location = new Point(422, 374);
+            btnChangePassword.Location = new Point(530, 374);
             btnChangePassword.Name = "btnChangePassword";
-            btnChangePassword.Size = new Size(132, 29);
+            btnChangePassword.Size = new Size(149, 29);
             btnChangePassword.TabIndex = 13;
             btnChangePassword.Text = "Change Password";
             btnChangePassword.UseVisualStyleBackColor = false;
             btnChangePassword.Click += btnChangePassword_Click;
             // 
+            // btnViewBilling
+            // 
+            btnViewBilling.Location = new Point(112, 374);
+            btnViewBilling.Name = "btnViewBilling";
+            btnViewBilling.Size = new Size(128, 29);
+            btnViewBilling.TabIndex = 14;
+            btnViewBilling.Text = "View Billing";
+            btnViewBilling.UseVisualStyleBackColor = true;
+            btnViewBilling.Click += btnViewBilling_Click;
+            // 
             // CustomerListForm
             // 
             ClientSize = new Size(782, 453);
+            Controls.Add(btnViewBilling);
             Controls.Add(btnChangePassword);
             Controls.Add(statusStrip1);
             Controls.Add(btnManagePermissions);
@@ -320,5 +333,6 @@ namespace BillingSystem
         private System.Windows.Forms.Timer statusTimer;
         private System.ComponentModel.IContainer components;
         private Button btnChangePassword;
+        private Button btnViewBilling;
     }
 }

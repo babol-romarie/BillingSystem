@@ -117,12 +117,14 @@
             // 
             // btnCancel
             // 
+            btnCancel.BackColor = SystemColors.GradientActiveCaption;
+            btnCancel.ForeColor = Color.Black;
             btnCancel.Location = new Point(248, 212);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(80, 29);
             btnCancel.TabIndex = 8;
             btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // frmChangePassword

@@ -14,6 +14,7 @@ namespace BillingSystem
         {
             InitializeComponent();
             _editCustomerId = 0;
+            AppTheme.Apply(this);
         }
 
         // Constructor for EDIT mode — receives the CustomerID to edit
@@ -21,6 +22,7 @@ namespace BillingSystem
         {
             InitializeComponent();
             _editCustomerId = customerId;
+            AppTheme.Apply(this);
         }
 
 
@@ -150,7 +152,7 @@ namespace BillingSystem
             {
                 UpdateCustomer();   // EDIT mode — new in Activity 4
             }
-        
+
         }
 
 
@@ -292,6 +294,11 @@ namespace BillingSystem
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

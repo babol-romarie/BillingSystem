@@ -13,6 +13,7 @@ namespace BillingSystem
         public frmChangePassword()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
         }
 
         private void btnSavePassword_Click(object sender, EventArgs e)

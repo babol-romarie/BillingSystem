@@ -145,28 +145,31 @@
             // 
             // btnSave
             // 
+            btnSave.BackColor = Color.SkyBlue;
             btnSave.Location = new Point(52, 362);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(149, 29);
             btnSave.TabIndex = 10;
             btnSave.Text = "Save Permissions";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnClose
             // 
+            btnClose.BackColor = Color.SkyBlue;
             btnClose.Location = new Point(279, 362);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(94, 29);
             btnClose.TabIndex = 11;
             btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
             // frmManagePermissions
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightSteelBlue;
             ClientSize = new Size(432, 413);
             Controls.Add(btnClose);
             Controls.Add(btnSave);

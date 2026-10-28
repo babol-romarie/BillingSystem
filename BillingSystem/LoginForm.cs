@@ -17,6 +17,7 @@ namespace BillingSystem
         {
             InitializeComponent();
             this.Text = "Billing System - Login (A.L)";
+            AppTheme.Apply(this);
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -139,6 +140,11 @@ namespace BillingSystem
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

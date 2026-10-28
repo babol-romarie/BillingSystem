@@ -100,13 +100,15 @@
             // 
             // btnCancel
             // 
+            btnCancel.BackColor = SystemColors.GradientActiveCaption;
             btnCancel.Location = new Point(352, 212);
             btnCancel.Margin = new Padding(3, 4, 3, 4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 6;
             btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // LoginForm
             // 

@@ -75,6 +75,7 @@ namespace BillingSystem
         {
             InitializeComponent();
             ConfigureDataGridView();
+            AppTheme.Apply(this);
 
             dgvCustomers.SelectionChanged += dgvCustomers_SelectionChanged;
             dgvCustomers.CellDoubleClick += dgvCustomers_CellDoubleClick;
@@ -82,7 +83,7 @@ namespace BillingSystem
             // (designer Load event may be wired to a different handler)
             LoadCustomers();
             ApplyPermissions();
-            ApplyTheme();
+            //ApplyTheme();
             InitStatusStrip();
             // Adjust grid when the form is resized
             this.Resize += CustomerListForm_Resize;
@@ -90,10 +91,11 @@ namespace BillingSystem
 
         private void CustomerListForm_Load(object? sender, EventArgs e)
         {
-            ApplyTheme();
+            AppTheme.Apply(this);
             LoadCustomers();
             ApplyPermissions();
             InitStatusStrip();
+            dgvCustomers.ClearSelection();
         }
 
         private void btnSearch_Click(object? sender, EventArgs e)
@@ -725,7 +727,7 @@ namespace BillingSystem
                 $"User: {AppSession.CurrentFullName} | Role: {AppSession.CurrentRole}";
             lblStatusSep.Spring = true;
             lblStatusTime.Visible = true;
-            lblStatusTime.ForeColor = AppTheme.TextColor;
+            lblStatusTime.ForeColor = Utils.AppTheme.TextColor;
             lblStatusTime.DisplayStyle = ToolStripItemDisplayStyle.Text;
             UpdateClock();
             lblStatusUser.Text += " | TEST: " + lblStatusTime.Text;
@@ -739,44 +741,6 @@ namespace BillingSystem
         private void statusTimer_Tick(object sender, EventArgs e)
         {
             UpdateClock();
-        }
-
-
-        private void ApplyTheme()
-        {
-            // Form background
-            this.BackColor = AppTheme.BackgroundColor;
-
-            // Action buttons
-            btnAdd.BackColor = AppTheme.SuccessColor;
-            btnAdd.ForeColor = Color.White;
-
-            btnDelete.BackColor = AppTheme.DangerColor;
-            btnDelete.ForeColor = Color.White;
-
-            btnAnalytics.BackColor = AppTheme.PrimaryColor;
-            btnAnalytics.ForeColor = Color.White;
-
-            btnExportExcel.BackColor = AppTheme.SecondaryColor;
-            btnExportExcel.ForeColor = Color.White;
-
-            btnExportPdf.BackColor = AppTheme.SecondaryColor;
-            btnExportPdf.ForeColor = Color.White;
-
-            btnAuditLog.BackColor = AppTheme.SecondaryColor;
-            btnAuditLog.ForeColor = Color.White;
-
-            btnManagePermissions.BackColor = AppTheme.DangerColor;
-            btnManagePermissions.ForeColor = Color.White;
-
-            // DataGridView header colors
-            dgvCustomers.ColumnHeadersDefaultCellStyle.BackColor = AppTheme.PrimaryColor;
-            dgvCustomers.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvCustomers.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9f, FontStyle.Bold);
-
-            // Alternating row colors
-            dgvCustomers.AlternatingRowsDefaultCellStyle.BackColor = AppTheme.GridRowAlt;
         }
 
         private void dgvCustomers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -793,14 +757,14 @@ namespace BillingSystem
             if (status == "Inactive")
             {
                 // The whole row turns light red
-                e.CellStyle.BackColor = AppTheme.InactiveRowColor;
+                e.CellStyle.BackColor = Utils.AppTheme.InactiveRowColor;
             }
             else if (status == "Active" &&
                      dgvCustomers.Columns[e.ColumnIndex].DataPropertyName == "Status")
             {
                 // Only the Status cell turns light green, so the
                 // alternating row colors stay visible
-                e.CellStyle.BackColor = AppTheme.ActiveRowColor;
+                e.CellStyle.BackColor = Utils.AppTheme.ActiveRowColor;
             }
         }
 
@@ -819,6 +783,23 @@ namespace BillingSystem
         {
             frmChangePassword changePwForm = new frmChangePassword();
             changePwForm.ShowDialog(this);
+        }
+
+        private void btnViewBilling_Click(object sender, EventArgs e)
+        {
+            // Popup 1: no customer selected
+            if (dgvCustomers.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a customer first.", "No Customer Selected",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;   // the form does NOT open
+            }
+
+            // Get the selected customer's ID
+            int customerId = Convert.ToInt32(dgvCustomers.SelectedRows[0].Cells["CustomerID"].Value);
+
+            frmBillingHistory billingForm = new frmBillingHistory(customerId);
+            billingForm.ShowDialog();
         }
     }
 }

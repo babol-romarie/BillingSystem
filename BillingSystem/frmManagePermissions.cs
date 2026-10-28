@@ -15,6 +15,7 @@ namespace BillingSystem
         public frmManagePermissions()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
         }
 
         private void frmManagePermissions_Load(object sender, EventArgs e)

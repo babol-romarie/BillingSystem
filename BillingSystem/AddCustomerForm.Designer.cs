@@ -158,12 +158,14 @@
             // 
             // btnBack
             // 
+            btnBack.BackColor = SystemColors.GradientActiveCaption;
             btnBack.Location = new Point(302, 320);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(94, 30);
             btnBack.TabIndex = 13;
             btnBack.Text = "Back";
-            btnBack.UseVisualStyleBackColor = true;
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
             // 
             // AddCustomerForm
             // 

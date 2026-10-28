@@ -12,6 +12,7 @@ namespace BillingSystem
         public frmAuditLogs()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
         }
 
         private void frmAuditLogs_Load(object sender, EventArgs e)

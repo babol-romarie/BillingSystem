@@ -83,16 +83,18 @@
             // 
             // btnSearch
             // 
+            btnSearch.BackColor = Color.SkyBlue;
             btnSearch.Location = new Point(731, 62);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(94, 29);
             btnSearch.TabIndex = 5;
             btnSearch.Text = "Search ";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += btnSearch_Click;
             // 
             // dgvAuditLogs
             // 
+            dgvAuditLogs.BackgroundColor = Color.White;
             dgvAuditLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAuditLogs.Location = new Point(33, 117);
             dgvAuditLogs.Name = "dgvAuditLogs";
@@ -103,18 +105,20 @@
             // 
             // btnClose
             // 
+            btnClose.BackColor = Color.SkyBlue;
             btnClose.Location = new Point(731, 455);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(94, 29);
             btnClose.TabIndex = 7;
             btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
             // frmAuditLogs
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightSteelBlue;
             ClientSize = new Size(882, 503);
             Controls.Add(btnClose);
             Controls.Add(dgvAuditLogs);

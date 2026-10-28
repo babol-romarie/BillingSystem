@@ -19,6 +19,7 @@ namespace BillingSystem
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Minimized;
+            AppTheme.Apply(this);
 
             // Configure grid for editable cells and user-resizable columns
             dgvTop5.AutoGenerateColumns = false;
