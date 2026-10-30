@@ -57,7 +57,7 @@
             // lblFullName
             // 
             lblFullName.AutoSize = true;
-            lblFullName.Location = new Point(11, 73);
+            lblFullName.Location = new Point(59, 88);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(79, 20);
             lblFullName.TabIndex = 1;
@@ -66,15 +66,15 @@
             // 
             // txtFullName
             // 
-            txtFullName.Location = new Point(137, 66);
+            txtFullName.Location = new Point(185, 81);
             txtFullName.Name = "txtFullName";
-            txtFullName.Size = new Size(125, 27);
+            txtFullName.Size = new Size(173, 27);
             txtFullName.TabIndex = 2;
             // 
             // lblAddress
             // 
             lblAddress.AutoSize = true;
-            lblAddress.Location = new Point(11, 112);
+            lblAddress.Location = new Point(59, 127);
             lblAddress.Name = "lblAddress";
             lblAddress.Size = new Size(65, 20);
             lblAddress.TabIndex = 3;
@@ -83,15 +83,15 @@
             // 
             // txtAddress
             // 
-            txtAddress.Location = new Point(138, 105);
+            txtAddress.Location = new Point(186, 120);
             txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(125, 27);
+            txtAddress.Size = new Size(173, 27);
             txtAddress.TabIndex = 4;
             // 
             // lblContact
             // 
             lblContact.AutoSize = true;
-            lblContact.Location = new Point(11, 150);
+            lblContact.Location = new Point(59, 165);
             lblContact.Name = "lblContact";
             lblContact.Size = new Size(121, 20);
             lblContact.TabIndex = 5;
@@ -99,15 +99,15 @@
             // 
             // txtContact
             // 
-            txtContact.Location = new Point(138, 143);
+            txtContact.Location = new Point(186, 158);
             txtContact.Name = "txtContact";
-            txtContact.Size = new Size(125, 27);
+            txtContact.Size = new Size(173, 27);
             txtContact.TabIndex = 6;
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(11, 190);
+            lblEmail.Location = new Point(59, 205);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(49, 20);
             lblEmail.TabIndex = 7;
@@ -115,15 +115,15 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(139, 183);
+            txtEmail.Location = new Point(187, 198);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(125, 27);
+            txtEmail.Size = new Size(173, 27);
             txtEmail.TabIndex = 8;
             // 
             // lblBalance
             // 
             lblBalance.AutoSize = true;
-            lblBalance.Location = new Point(11, 230);
+            lblBalance.Location = new Point(59, 245);
             lblBalance.Name = "lblBalance";
             lblBalance.Size = new Size(105, 20);
             lblBalance.TabIndex = 9;
@@ -131,9 +131,9 @@
             // 
             // txtBalance
             // 
-            txtBalance.Location = new Point(139, 222);
+            txtBalance.Location = new Point(187, 237);
             txtBalance.Name = "txtBalance";
-            txtBalance.Size = new Size(125, 27);
+            txtBalance.Size = new Size(173, 27);
             txtBalance.TabIndex = 10;
             txtBalance.Text = "0.00";
             // 

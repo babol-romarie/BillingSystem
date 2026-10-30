@@ -30,6 +30,9 @@ namespace BillingSystem
                 { "ExportExcel",       chkExportExcel    },
                 { "ExportPdf",         chkExportPdf      },
                 { "AuditLogs",         chkAuditLogs      },
+                { "ViewBilling",       chkViewBilling    },
+                { "ChangePassword",    chkChangePassword },
+
             };
 
             // Populate dropdown and load first role
@@ -123,6 +126,11 @@ namespace BillingSystem
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void chkAddCustomer_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

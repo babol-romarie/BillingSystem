@@ -39,7 +39,7 @@
             // 
             lblAppName.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAppName.ForeColor = Color.White;
-            lblAppName.Location = new Point(59, 60);
+            lblAppName.Location = new Point(60, 60);
             lblAppName.Name = "lblAppName";
             lblAppName.Size = new Size(368, 119);
             lblAppName.TabIndex = 0;
@@ -60,10 +60,11 @@
             // 
             // lblLoading
             // 
+            lblLoading.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblLoading.AutoSize = true;
             lblLoading.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             lblLoading.ForeColor = Color.LightBlue;
-            lblLoading.Location = new Point(193, 255);
+            lblLoading.Location = new Point(201, 201);
             lblLoading.Name = "lblLoading";
             lblLoading.Size = new Size(73, 20);
             lblLoading.TabIndex = 2;

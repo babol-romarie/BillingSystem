@@ -707,16 +707,44 @@ namespace BillingSystem
                                         btnAuditLog.Enabled = isAllowed; break;
                                     case "ManagePermissions":
                                         btnManagePermissions.Enabled = isAllowed; break;
+                                    case "ViewBilling":
+                                        btnViewBilling.Enabled = isAllowed; break;
+                                    case "ChangePassword":
+                                        btnChangePassword.Enabled = isAllowed; break;
                                 }
                             }
                         }
                     }
                 }
+
+                // Make disabled buttons LOOK disabled (the theme colors them otherwise)
+                DimDisabledButtons();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading permissions:\n{ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Grays out any permission-controlled button that is disabled
+        private void DimDisabledButtons()
+        {
+            Button[] permissionButtons =
+            {
+                btnAdd, btnDelete, btnAnalytics, btnExportExcel,
+                btnExportPdf, btnAuditLog, btnManagePermissions,
+                btnViewBilling, btnChangePassword
+            };
+
+            foreach (Button b in permissionButtons)
+            {
+                if (b.Enabled) continue;
+
+                b.BackColor = Color.Gainsboro;
+                b.ForeColor = Color.DarkGray;
+                b.FlatAppearance.BorderColor = Color.Silver;
+                b.Cursor = Cursors.Default;
             }
         }
 

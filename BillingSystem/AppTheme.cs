@@ -24,8 +24,8 @@ namespace BillingSystem   // keep YOUR project's namespace
         public static Color Success => Color.DarkGreen;
 
         // ---------- Fonts (3 sizes = clear hierarchy) ----------
-        public static Font Title = new Font("Segoe UI", 16f, FontStyle.Bold);
-        public static Font Body = new Font("Segoe UI", 9.5f, FontStyle.Regular);
+        public static Font Title = new Font("Segoe UI", 14f, FontStyle.Bold);
+        public static Font Body = new Font("Segoe UI", 9f, FontStyle.Regular);
         public static Font Bold = new Font("Segoe UI", 9f, FontStyle.Bold);
 
         // ---------- Switch light/dark for every open form ----------
@@ -58,7 +58,7 @@ namespace BillingSystem   // keep YOUR project's namespace
             {
                 lbl.BackColor = Color.Transparent;
                 lbl.ForeColor = TextColor;
-                lbl.Font = lbl.Font.Size >= 12 ? Title : Body;   // big labels = titles
+                lbl.Font = lbl.Font.Size >= 12 ? Title : Body;  // big labels = titles
             }
             else if (c is Button btn) StyleButton(btn);
             else if (c is TextBox tb)
@@ -96,14 +96,19 @@ namespace BillingSystem   // keep YOUR project's namespace
         private static void StyleButton(Button b)
         {
             string t = (b.Text ?? "").Trim().ToLower();
-            string[] primary = { "save", "login", "search", "view billing", "save password", "save permissions" };
+
+            string[] primary = { "save", "login", "search", "view billing", "change password", "save password", "save permissions" };
+            string[] accent = { "export to excel", "export to pdf", "analytics", "audit log", "cancel", "clear", "close", "close", "close", "close", "cancel" };
+            string[] danger = { "delete", "manage permissions", "logout" };
 
             Color back, fore, border;
-            if (t == "delete") { back = Danger; fore = Color.White; border = Danger; }
+            if (Array.IndexOf(danger, t) >= 0) { back = Danger; fore = Color.White; border = Danger; }
             else if (t == "add customer") { back = Success; fore = Color.White; border = Success; }
             else if (Array.IndexOf(primary, t) >= 0) { back = Primary; fore = Color.White; border = Primary; }
+            else if (Array.IndexOf(accent, t) >= 0) { back = Color.SteelBlue; fore = Color.White; border = Color.SteelBlue; }
             else
             {
+                // Cancel, Back, Clear, Close, Change Password
                 back = IsDark ? Color.DarkSlateGray : Color.White;
                 fore = IsDark ? Color.White : Color.Black;
                 border = IsDark ? Color.DimGray : Color.Gray;

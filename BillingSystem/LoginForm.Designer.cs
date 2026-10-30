@@ -40,10 +40,10 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lblTitle.Location = new Point(199, 11);
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(200, 28);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(203, 32);
+            lblTitle.Size = new Size(255, 41);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "BILLING SYSTEM";
             lblTitle.Click += lblTitle_Click;
@@ -51,7 +51,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(94, 74);
+            lblUsername.Location = new Point(117, 124);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(78, 20);
             lblUsername.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(185, 71);
+            txtUsername.Location = new Point(208, 121);
             txtUsername.Margin = new Padding(3, 4, 3, 4);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(260, 27);
@@ -69,7 +69,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(94, 126);
+            lblPassword.Location = new Point(117, 176);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(73, 20);
             lblPassword.TabIndex = 3;
@@ -78,7 +78,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(185, 122);
+            txtPassword.Location = new Point(208, 172);
             txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
@@ -89,7 +89,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(185, 212);
+            btnLogin.Location = new Point(171, 268);
             btnLogin.Margin = new Padding(3, 4, 3, 4);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(94, 29);
@@ -101,7 +101,7 @@
             // btnCancel
             // 
             btnCancel.BackColor = SystemColors.GradientActiveCaption;
-            btnCancel.Location = new Point(352, 212);
+            btnCancel.Location = new Point(338, 268);
             btnCancel.Margin = new Padding(3, 4, 3, 4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);

@@ -50,12 +50,12 @@
             dgvBilling.AllowUserToDeleteRows = false;
             dgvBilling.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBilling.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBilling.Location = new Point(29, 85);
+            dgvBilling.Location = new Point(12, 81);
             dgvBilling.Name = "dgvBilling";
             dgvBilling.ReadOnly = true;
             dgvBilling.RowHeadersWidth = 51;
             dgvBilling.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBilling.Size = new Size(740, 230);
+            dgvBilling.Size = new Size(776, 230);
             dgvBilling.TabIndex = 1;
             // 
             // btnClose

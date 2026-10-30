@@ -151,12 +151,12 @@ namespace BillingSystem
             // 
             txtSearch.Location = new Point(350, 15);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(167, 27);
+            txtSearch.Size = new Size(127, 27);
             txtSearch.TabIndex = 5;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(530, 13);
+            btnSearch.Location = new Point(485, 13);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(71, 29);
             btnSearch.TabIndex = 6;
@@ -213,9 +213,9 @@ namespace BillingSystem
             // 
             btnManagePermissions.BackColor = SystemColors.Control;
             btnManagePermissions.ForeColor = Color.Black;
-            btnManagePermissions.Location = new Point(609, 12);
+            btnManagePermissions.Location = new Point(579, 12);
             btnManagePermissions.Name = "btnManagePermissions";
-            btnManagePermissions.Size = new Size(161, 29);
+            btnManagePermissions.Size = new Size(191, 29);
             btnManagePermissions.TabIndex = 11;
             btnManagePermissions.Text = "Manage Permissions";
             btnManagePermissions.UseVisualStyleBackColor = false;
@@ -261,9 +261,9 @@ namespace BillingSystem
             // 
             btnChangePassword.BackColor = Color.FromArgb(255, 128, 128);
             btnChangePassword.ForeColor = Color.White;
-            btnChangePassword.Location = new Point(530, 374);
+            btnChangePassword.Location = new Point(517, 374);
             btnChangePassword.Name = "btnChangePassword";
-            btnChangePassword.Size = new Size(149, 29);
+            btnChangePassword.Size = new Size(167, 29);
             btnChangePassword.TabIndex = 13;
             btnChangePassword.Text = "Change Password";
             btnChangePassword.UseVisualStyleBackColor = false;
