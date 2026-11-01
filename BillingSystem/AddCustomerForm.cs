@@ -20,7 +20,6 @@ namespace BillingSystem
         // Constructor for EDIT mode — receives the CustomerID to edit
         public AddCustomerForm(int customerId)
         {
-            InitializeComponent();
             _editCustomerId = customerId;
             AppTheme.Apply(this);
         }
@@ -63,7 +62,6 @@ namespace BillingSystem
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@CustomerID", customerId);
-
                         using (var reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -73,12 +71,7 @@ namespace BillingSystem
                                 txtContact.Text = reader.GetString("ContactNumber");
                                 txtEmail.Text = reader.GetString("Email");
                                 txtBalance.Text = reader.GetDecimal("Balance").ToString("N2");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Customer record not found.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                this.Close();
+                                cmbStatus.Text = reader["Status"]?.ToString() ?? string.Empty;
                             }
                         }
                     }
@@ -86,8 +79,7 @@ namespace BillingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading customer data:\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error loading customer data:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -134,8 +126,7 @@ namespace BillingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving customer:\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error saving customer:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -216,51 +207,36 @@ namespace BillingSystem
 
         private bool ValidateInputs()
         {
-            // Check Full Name
             if (string.IsNullOrWhiteSpace(txtFullName.Text))
             {
-                MessageBox.Show("Full Name is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Full Name is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtFullName.Focus();
                 return false;
             }
-
-            // Check Address
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
             {
-                MessageBox.Show("Address is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Address is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtAddress.Focus();
                 return false;
             }
-
-            // Check Contact Number
             if (string.IsNullOrWhiteSpace(txtContact.Text))
             {
-                MessageBox.Show("Contact Number is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Contact Number is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtContact.Focus();
                 return false;
             }
-
-            // Check Email
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Email is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Email is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
                 return false;
             }
-
-            // Check Balance is a valid number
             if (!decimal.TryParse(txtBalance.Text, out _))
             {
-                MessageBox.Show("Initial Balance must be a valid number (e.g. 0.00).",
-                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Initial Balance must be a valid number (e.g. 0.00).", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBalance.Focus();
                 return false;
             }
-
             return true;
         }
 

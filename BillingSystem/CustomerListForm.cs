@@ -224,6 +224,7 @@ namespace BillingSystem
                 // Swallow any exceptions during resize to avoid crashing while dragging
             }
         }
+
         private void SearchCustomers(string keyword)
         {
             try
@@ -240,11 +241,11 @@ namespace BillingSystem
                                   Email,
                                   Balance,
                                   Status
-                           FROM   Customers
-                           WHERE  FullName      LIKE @keyword
-                              OR  Address       LIKE @keyword
-                              OR  ContactNumber LIKE @keyword
-                           ORDER  BY FullName ASC;";
+                             FROM   Customers
+                             WHERE  FullName      LIKE @keyword
+                                OR  Address       LIKE @keyword
+                                OR  ContactNumber LIKE @keyword
+                             ORDER  BY FullName ASC;";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
