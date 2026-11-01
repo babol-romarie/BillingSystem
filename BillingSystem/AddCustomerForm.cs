@@ -18,10 +18,9 @@ namespace BillingSystem
         }
 
         // Constructor for EDIT mode — receives the CustomerID to edit
-        public AddCustomerForm(int customerId)
+        public AddCustomerForm(int customerId) : this()
         {
             _editCustomerId = customerId;
-            AppTheme.Apply(this);
         }
 
 
@@ -55,7 +54,7 @@ namespace BillingSystem
                 {
                     conn.Open();
 
-                    string sql = @"SELECT FullName, Address, ContactNumber, Email, Balance
+                    string sql = @"SELECT FullName, Address, ContactNumber, Email, Balance, Status
                            FROM   Customers
                            WHERE  CustomerID = @CustomerID;";
 
@@ -71,7 +70,6 @@ namespace BillingSystem
                                 txtContact.Text = reader.GetString("ContactNumber");
                                 txtEmail.Text = reader.GetString("Email");
                                 txtBalance.Text = reader.GetDecimal("Balance").ToString("N2");
-                                cmbStatus.Text = reader["Status"]?.ToString() ?? string.Empty;
                             }
                         }
                     }
