@@ -67,6 +67,7 @@ namespace BillingSystem
             dgvCustomers.TabIndex = 1;
             dgvCustomers.CellContentClick += dgvCustomers_CellContentClick;
             dgvCustomers.CellFormatting += dgvCustomers_CellFormatting;
+            dgvCustomers.DataBindingComplete += dgvCustomers_DataBindingComplete;
             dgvCustomers.SelectionChanged += dgvCustomers_SelectionChanged;
             // 
             // CustomerID
@@ -129,7 +130,7 @@ namespace BillingSystem
             btnDelete.ForeColor = Color.Black;
             btnDelete.Location = new Point(339, 304);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(118, 36);
+            btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
@@ -141,7 +142,7 @@ namespace BillingSystem
             btnLogout.ForeColor = Color.White;
             btnLogout.Location = new Point(554, 304);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(118, 36);
+            btnLogout.Size = new Size(94, 29);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;

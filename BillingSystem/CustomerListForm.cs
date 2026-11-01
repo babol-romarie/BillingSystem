@@ -830,5 +830,11 @@ namespace BillingSystem
             frmBillingHistory billingForm = new frmBillingHistory(customerId);
             billingForm.ShowDialog();
         }
+
+        private void dgvCustomers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvCustomers.ClearSelection();
+            _selectedCustomerId = 0;
+        }
     }
 }
