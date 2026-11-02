@@ -69,7 +69,7 @@ namespace BillingSystem
                                 txtAddress.Text = reader.GetString("Address");
                                 txtContact.Text = reader.GetString("ContactNumber");
                                 txtEmail.Text = reader.GetString("Email");
-                                txtBalance.Text = reader.GetDecimal("Balance").ToString("N2");
+                                txtBalance.Text = reader["Balance"] == DBNull.Value ? "0.00" : reader.GetDecimal("Balance").ToString("N2");
                             }
                         }
                     }

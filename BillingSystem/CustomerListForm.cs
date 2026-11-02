@@ -224,7 +224,6 @@ namespace BillingSystem
                 // Swallow any exceptions during resize to avoid crashing while dragging
             }
         }
-
         private void SearchCustomers(string keyword)
         {
             try
@@ -241,11 +240,11 @@ namespace BillingSystem
                                   Email,
                                   Balance,
                                   Status
-                             FROM   Customers
-                             WHERE  FullName      LIKE @keyword
-                                OR  Address       LIKE @keyword
-                                OR  ContactNumber LIKE @keyword
-                             ORDER  BY FullName ASC;";
+                           FROM   Customers
+                           WHERE  FullName      LIKE @keyword
+                              OR  Address       LIKE @keyword
+                              OR  ContactNumber LIKE @keyword
+                           ORDER  BY FullName ASC;";
 
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
@@ -816,16 +815,24 @@ namespace BillingSystem
 
         private void btnViewBilling_Click(object sender, EventArgs e)
         {
-            // Popup 1: no customer selected
-            if (dgvCustomers.SelectedRows.Count == 0)
+            if (dgvCustomers.CurrentRow == null)
             {
                 MessageBox.Show("Please select a customer first.", "No Customer Selected",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;   // the form does NOT open
+                return;
             }
 
-            // Get the selected customer's ID
-            int customerId = Convert.ToInt32(dgvCustomers.SelectedRows[0].Cells["CustomerID"].Value);
+            int customerId = 0;   // 0 = no customer, so no records
+
+            // Look at the highlighted row, not CurrentRow
+            if (dgvCustomers.SelectedCells.Count > 0)
+            {
+                int rowIndex = dgvCustomers.SelectedCells[0].RowIndex;
+                var cell = dgvCustomers.Rows[rowIndex].Cells["CustomerID"].Value;
+
+                if (cell != null && cell != DBNull.Value)
+                    customerId = Convert.ToInt32(cell);
+            }
 
             frmBillingHistory billingForm = new frmBillingHistory(customerId);
             billingForm.ShowDialog();
@@ -834,6 +841,14 @@ namespace BillingSystem
         private void dgvCustomers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvCustomers.ClearSelection();
+            dgvCustomers.CurrentCell = null;
+            _selectedCustomerId = 0;
+        }
+
+        private void CustomerListForm_Shown(object sender, EventArgs e)
+        {
+            dgvCustomers.ClearSelection();
+            dgvCustomers.CurrentCell = null;
             _selectedCustomerId = 0;
         }
     }

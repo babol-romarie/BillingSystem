@@ -53,6 +53,7 @@ namespace BillingSystem
             // 
             // dgvCustomers
             // 
+            dgvCustomers.AllowUserToAddRows = false;
             dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCustomers.BackgroundColor = SystemColors.Control;
@@ -61,6 +62,7 @@ namespace BillingSystem
             dgvCustomers.Location = new Point(21, 50);
             dgvCustomers.MultiSelect = false;
             dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.ReadOnly = true;
             dgvCustomers.RowHeadersWidth = 51;
             dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCustomers.Size = new Size(740, 229);
@@ -75,30 +77,35 @@ namespace BillingSystem
             CustomerID.HeaderText = "ID";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
+            CustomerID.ReadOnly = true;
             // 
             // FullName
             // 
             FullName.HeaderText = "Full Name";
             FullName.MinimumWidth = 6;
             FullName.Name = "FullName";
+            FullName.ReadOnly = true;
             // 
             // Address
             // 
             Address.HeaderText = "Address";
             Address.MinimumWidth = 6;
             Address.Name = "Address";
+            Address.ReadOnly = true;
             // 
             // ContactNumber
             // 
             ContactNumber.HeaderText = "Contact Number";
             ContactNumber.MinimumWidth = 6;
             ContactNumber.Name = "ContactNumber";
+            ContactNumber.ReadOnly = true;
             // 
             // Email
             // 
             Email.HeaderText = "Email";
             Email.MinimumWidth = 6;
             Email.Name = "Email";
+            Email.ReadOnly = true;
             // 
             // Balance
             // 
@@ -113,6 +120,7 @@ namespace BillingSystem
             Status.HeaderText = "Status";
             Status.MinimumWidth = 6;
             Status.Name = "Status";
+            Status.ReadOnly = true;
             // 
             // btnAdd
             // 
@@ -301,6 +309,7 @@ namespace BillingSystem
             Name = "CustomerListForm";
             StartPosition = FormStartPosition.CenterScreen;
             Load += CustomerListForm_Load_1;
+            Shown += CustomerListForm_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();

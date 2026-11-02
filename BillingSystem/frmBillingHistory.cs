@@ -28,7 +28,7 @@ namespace BillingSystem   // keep YOUR project's namespace here
             {
                 MessageBox.Show("Customer not found in the database.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                this.Close(); 
             }
         }
 
@@ -80,6 +80,7 @@ namespace BillingSystem   // keep YOUR project's namespace here
                 {
                     MessageBox.Show("No billing records were found for this customer.",
                         "No Records", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.BeginInvoke(new Action(this.Close));   // go back to the Customer List
                 }
             }
         }
